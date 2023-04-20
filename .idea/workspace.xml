@@ -5,21 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2fbe827b-95a1-4689-b060-af108ed4fe0e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/ApptInfoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateApptController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateCustomerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CustomerInfoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/DirectoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/ReportsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/appt-info-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-appt-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-customer-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/customer-info-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/directory-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/reports-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +32,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -58,10 +61,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -74,5 +78,9 @@
       <updated>1681722027132</updated>
     </task>
     <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

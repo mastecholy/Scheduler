@@ -24,7 +24,6 @@ public class LoginController {
 
     @FXML
     void LoginButtonClick(ActionEvent event) {
-        Platform.exit();
     }
 
 }
