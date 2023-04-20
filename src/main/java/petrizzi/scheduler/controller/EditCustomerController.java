@@ -1,4 +1,4 @@
 package petrizzi.scheduler.controller;
 
-public class CustomerInfoController {
+public class EditCustomerController {
 }

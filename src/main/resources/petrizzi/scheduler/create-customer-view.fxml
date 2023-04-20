@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="361.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.CustomerInfoController">
+<AnchorPane prefHeight="450.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.EditCustomerController">
    <children>
-      <HBox prefHeight="311.0" prefWidth="511.0">
+      <HBox layoutY="70.0" prefHeight="311.0" prefWidth="511.0">
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="311.0" prefWidth="223.0">
                <children>
@@ -139,7 +139,12 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="417.0" layoutY="321.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Cancel" />
-      <Button layoutX="295.0" layoutY="321.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Save Customer" />
+      <Button layoutX="414.0" layoutY="410.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Cancel" />
+      <Button layoutX="279.0" layoutY="410.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Create Customer" />
+      <Label layoutX="14.0" layoutY="41.0" text="Add Customer">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

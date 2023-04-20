@@ -5,23 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2fbe827b-95a1-4689-b060-af108ed4fe0e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/ApptInfoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateApptController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateCustomerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CustomerInfoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/DirectoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/ReportsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/appt-info-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-appt-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-customer-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/customer-info-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/directory-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/reports-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/HelperFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/ApptInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/EditApptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateApptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CustomerInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/EditCustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/DirectoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/DirectoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/appt-info-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/edit-appt-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-appt-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-appt-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-customer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/create-customer-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/customer-info-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/edit-customer-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/directory-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/directory-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,19 +50,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.JavaFX"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="petrizzi.scheduler.Main" />
+      <module name="Scheduler" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

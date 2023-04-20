@@ -44,22 +44,27 @@
             <TableColumn prefWidth="49.863525390625" text="User ID" />
          </columns>
       </TableView>
-      <Button layoutX="177.0" layoutY="16.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="222.0" layoutY="16.0" mnemonicParsing="false" text="Edit" />
-      <Button layoutX="265.0" layoutY="16.0" mnemonicParsing="false" text="Remove" />
-      <Button layoutX="177.0" layoutY="302.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="222.0" layoutY="302.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="addCustomerButton" layoutX="177.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#addCustomerClick" text="Add" />
+      <Button fx:id="editCustomerButton" layoutX="222.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#editCustomerClick" text="Edit" />
+      <Button fx:id="removeCustomerButton" layoutX="265.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#removeCustomerClick" text="Remove" />
+      <Button fx:id="addApptButton" layoutX="177.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#addApptClick" text="Add" />
+      <Button fx:id="editApptButton" layoutX="222.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#editApptClick" text="Edit" />
       <Button layoutX="267.0" layoutY="302.0" mnemonicParsing="false" text="Remove" />
       <Label layoutX="545.0" layoutY="306.0" text="Filter by:" />
       <RadioButton layoutX="613.0" layoutY="306.0" mnemonicParsing="false" text="All" />
       <RadioButton layoutX="677.0" layoutY="306.0" mnemonicParsing="false" text="This Month" />
       <RadioButton layoutX="793.0" layoutY="306.0" mnemonicParsing="false" text="This Week" />
-      <Button layoutX="752.0" layoutY="587.0" mnemonicParsing="false" text="Reports">
+      <Button fx:id="reportsButton" layoutX="643.0" layoutY="587.0" mnemonicParsing="false" text="Reports">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="857.0" layoutY="587.0" mnemonicParsing="false" text="Logout">
+      <Button fx:id="logoutButton" layoutX="735.0" layoutY="587.0" mnemonicParsing="false" text="Logout">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="exitButton" layoutX="821.0" layoutY="587.0" mnemonicParsing="false" text="Exit Program">
          <font>
             <Font size="18.0" />
          </font>

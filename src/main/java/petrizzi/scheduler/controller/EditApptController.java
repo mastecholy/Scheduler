@@ -3,24 +3,15 @@ package petrizzi.scheduler.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.util.converter.IntegerStringConverter;
-import petrizzi.scheduler.helper.HelperFunctions;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CreateApptController implements Initializable {
+public class EditApptController implements Initializable {
 
     @FXML
     private ComboBox<?> contactComboBox;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button cancelButton;
 
     @FXML
     private ComboBox<?> customerIdComboBox;
@@ -58,17 +49,6 @@ public class CreateApptController implements Initializable {
 
     @FXML
     private ComboBox<?> userIdComboBox;
-
-    @FXML
-    void saveButtonClick(MouseEvent event) throws IOException {
-        ////// add persistence
-        HelperFunctions.changeStage("directory-view.fxml", saveButton);
-    }
-
-    @FXML
-    void cancelButtonClick(MouseEvent event) throws IOException {
-        HelperFunctions.changeStage("directory-view.fxml", cancelButton);
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
