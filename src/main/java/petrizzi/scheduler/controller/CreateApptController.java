@@ -43,10 +43,11 @@ public class CreateApptController implements Initializable {
     @FXML
     private Spinner<Integer> startHoursSpinner;
 
-    SpinnerValueFactory<Integer> hourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
+    SpinnerValueFactory<Integer> StartHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
+    SpinnerValueFactory<Integer> EndHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
 
-    SpinnerValueFactory<Integer> minFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0);
-
+    SpinnerValueFactory<Integer> StartMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
+    SpinnerValueFactory<Integer> EndMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
     @FXML
     private Spinner<Integer> startMinutesSpinner;
 
@@ -72,10 +73,10 @@ public class CreateApptController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        startHoursSpinner.setValueFactory(hourFactory);
-        startMinutesSpinner.setValueFactory(minFactory);
-        endHoursSpinner.setValueFactory(hourFactory);
-        endMinutesSpinner.setValueFactory(minFactory);
+        startHoursSpinner.setValueFactory(StartHourFactory);
+        startMinutesSpinner.setValueFactory(StartMinFactory);
+        endHoursSpinner.setValueFactory(EndHourFactory);
+        endMinutesSpinner.setValueFactory(EndMinFactory);
 
     }
 

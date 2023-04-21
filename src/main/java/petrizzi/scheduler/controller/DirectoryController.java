@@ -1,5 +1,6 @@
 package petrizzi.scheduler.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,9 @@ public class DirectoryController {
 
     @FXML
     private Button editApptButton;
+
+    @FXML
+    private Button logoutButton;
 
     @FXML
     private Button removeApptButton;
@@ -61,6 +65,16 @@ public class DirectoryController {
     @FXML
     void removeApptClick(MouseEvent event) {
 
+    }
+
+    @FXML
+    void exitClick(MouseEvent event){
+        Platform.exit();
+    }
+
+    @FXML
+    void logoutClick(MouseEvent event) throws IOException{
+        HelperFunctions.changeStage("login-view.fxml", logoutButton);
     }
 
 }

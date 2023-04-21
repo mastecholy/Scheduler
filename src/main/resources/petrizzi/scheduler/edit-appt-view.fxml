@@ -35,7 +35,7 @@
         <ComboBox fx:id="userIdComboBox" layoutX="120.0" layoutY="420.0" prefWidth="200.0" />
         <Label layoutX="25.0" layoutY="459.0" text="Contact" />
         <ComboBox fx:id="contactComboBox" layoutX="120.0" layoutY="456.0" prefWidth="200.0" />
-        <Button layoutX="25.0" layoutY="501.0" mnemonicParsing="false" text="Save" />
+        <Button fx:id="saveButton" layoutX="25.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#saveButtonClick" text="Save" />
       <Label layoutX="25.0" layoutY="281.0" text="Start Time" />
       <Label layoutX="25.0" layoutY="353.0" text="End Time" />
       <Spinner fx:id="startHoursSpinner" editable="true" layoutX="120.0" layoutY="278.0" prefHeight="26.0" prefWidth="79.0" />
@@ -52,6 +52,6 @@
          </font>
       </Label>
       <Spinner fx:id="endMinutesSpinner" editable="true" layoutX="214.0" layoutY="349.0" prefHeight="26.0" prefWidth="79.0" />
-      <Button layoutX="85.0" layoutY="501.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="85.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#cancelButtonClick" text="Cancel" />
     </children>
 </AnchorPane>
