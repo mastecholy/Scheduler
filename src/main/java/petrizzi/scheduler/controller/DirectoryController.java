@@ -35,6 +35,9 @@ public class DirectoryController {
     private Button logoutButton;
 
     @FXML
+    private Button exitButton;
+
+    @FXML
     private Button removeApptButton;
 
     @FXML
@@ -69,7 +72,8 @@ public class DirectoryController {
 
     @FXML
     void exitClick(MouseEvent event){
-        Platform.exit();
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

@@ -17,4 +17,8 @@ public class HelperFunctions {
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void sendAlert(){};
+
+
 }

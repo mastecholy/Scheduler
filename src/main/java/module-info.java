@@ -1,8 +1,10 @@
 module petrizzi.scheduler {
     requires javafx.controls;
     requires javafx.fxml;
-            
-                            
+    requires java.sql;
+    requires mysql.connector.j;
+
+
     opens petrizzi.scheduler to javafx.fxml;
     exports petrizzi.scheduler;
     exports petrizzi.scheduler.controller;
