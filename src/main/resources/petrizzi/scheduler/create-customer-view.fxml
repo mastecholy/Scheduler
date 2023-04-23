@@ -82,20 +82,12 @@
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="330.0" prefWidth="254.0">
                <children>
-                  <TextField editable="false" prefHeight="26.0" prefWidth="165.0">
+                  <TextField disable="true" editable="false" prefHeight="26.0" prefWidth="100.0" text="Auto Generated">
                      <VBox.margin>
-                        <Insets right="200.0" />
+                        <Insets right="150.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter name.">
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField layoutX="10.0" layoutY="36.0" promptText="Enter address.">
+                  <TextField fx:id="name" promptText="Enter name.">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
@@ -103,7 +95,15 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="10.0" layoutY="62.0" promptText="Enter postal code.">
+                  <TextField fx:id="address" layoutX="10.0" layoutY="36.0" promptText="Enter address.">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="postalCode" layoutX="10.0" layoutY="62.0" promptText="Enter postal code.">
                      <VBox.margin>
                         <Insets right="90.0" top="12.0" />
                      </VBox.margin>
@@ -111,7 +111,7 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="10.0" layoutY="88.0" prefHeight="23.0" prefWidth="164.0" promptText="Enter phone number.">
+                  <TextField fx:id="phone" layoutX="10.0" layoutY="88.0" prefHeight="23.0" prefWidth="164.0" promptText="Enter phone number.">
                      <VBox.margin>
                         <Insets right="90.0" top="12.0" />
                      </VBox.margin>
@@ -119,12 +119,12 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <ComboBox prefHeight="26.0" prefWidth="210.0" promptText="Select country.">
+                  <ComboBox fx:id="countryBox" prefHeight="26.0" prefWidth="210.0" promptText="Select country.">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <ComboBox prefHeight="26.0" prefWidth="210.0" promptText="Select region.">
+                  <ComboBox fx:id="regionBox" prefHeight="26.0" prefWidth="210.0" promptText="Select region.">
                      <VBox.margin>
                         <Insets top="12.0" />
                      </VBox.margin>

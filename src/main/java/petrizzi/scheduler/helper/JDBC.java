@@ -19,6 +19,7 @@ public abstract class JDBC {
 
     public static Connection connection;
 
+
     public static void openConnection() {
         try {
             Class.forName(driver);
