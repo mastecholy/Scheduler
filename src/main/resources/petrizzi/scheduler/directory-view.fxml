@@ -11,14 +11,14 @@
 
 <AnchorPane prefHeight="636.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.DirectoryController">
    <children>
-      <TableView layoutX="23.0" layoutY="45.0" prefHeight="225.0" prefWidth="911.0">
+      <TableView fx:id="customerTableView" layoutX="23.0" layoutY="45.0" prefHeight="225.0" prefWidth="911.0">
         <columns>
-          <TableColumn prefWidth="59.72938537597656" text="ID" />
-          <TableColumn prefWidth="166.27063751220703" text="Name" />
-            <TableColumn minWidth="2.7191009521484375" prefWidth="191.0411834716797" text="Address" />
-            <TableColumn prefWidth="181.68035888671875" text="Phone Number" />
-            <TableColumn prefWidth="177.31964111328125" text="State/Province" />
-            <TableColumn prefWidth="134.78350830078125" text="Postal Code" />
+          <TableColumn fx:id="customerIDColumn" prefWidth="59.72938537597656" text="ID" />
+          <TableColumn fx:id="customerNameColumn" prefWidth="210.5" text="Name" />
+            <TableColumn fx:id="customerAddressColumn" minWidth="2.7191009521484375" prefWidth="251.5" text="Address" />
+            <TableColumn fx:id="customerPostalCodeColumn" prefWidth="179.0" text="Postal Code" />
+            <TableColumn fx:id="customerPhoneNumberColumn" minWidth="0.0" prefWidth="145.0" text="Phone Number" />
+            <TableColumn fx:id="customerDivisionIDColumn" minWidth="0.0" prefWidth="64.0" text="Division ID" />
         </columns>
       </TableView>
       <Label layoutX="21.0" layoutY="15.0" prefHeight="29.0" prefWidth="127.0" text="Customers">
@@ -31,7 +31,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView layoutX="26.0" layoutY="332.0" prefHeight="225.0" prefWidth="908.0">
+      <TableView fx:id="appointmentTableView" layoutX="26.0" layoutY="332.0" prefHeight="225.0" prefWidth="908.0">
          <columns>
             <TableColumn prefWidth="54.10825157165527" text="ID" />
             <TableColumn prefWidth="74.39173889160156" text="Title" />

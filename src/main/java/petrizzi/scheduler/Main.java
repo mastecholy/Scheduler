@@ -20,7 +20,6 @@ public class Main extends Application {
     }
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
-        //Queries.createCustomer("AAA", "BBB", "CCC", "DDD", 69);
         launch();
         JDBC.closeConnection();
     }

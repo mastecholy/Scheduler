@@ -9,4 +9,6 @@ module petrizzi.scheduler {
     exports petrizzi.scheduler;
     exports petrizzi.scheduler.controller;
     opens petrizzi.scheduler.controller to javafx.fxml;
+    opens petrizzi.scheduler.model to javafx.base;
+
 }

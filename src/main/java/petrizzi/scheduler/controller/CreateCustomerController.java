@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.Queries;
@@ -21,10 +22,11 @@ public class CreateCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countryBox.setItems(FXCollections.observableArrayList("United States", "United Kingdom", "Canada"));
+        regionBox.setDisable(true);
         countryBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                regionBox.getItems().clear();
-                regionBox.setDisable(true);
+                regionBox.getItems().setAll("Select region.");
+
             }else {
                 String countrySelection = countryBox.getSelectionModel().getSelectedItem();
                 int cID;
@@ -38,10 +40,7 @@ public class CreateCustomerController implements Initializable {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-
             }
-
-
         });
     }
 
@@ -58,14 +57,20 @@ public class CreateCustomerController implements Initializable {
     @FXML
     private ComboBox<String> regionBox;
 
+    @FXML
+    private TextField name;
 
+    @FXML
+    private TextField address;
 
+    @FXML
+    private TextField postalCode;
 
+    @FXML
+    private TextField phone;
 
-
-
-
-
+    @FXML
+    private int regionID;
 
 
     @FXML
@@ -74,8 +79,15 @@ public class CreateCustomerController implements Initializable {
     }
 
     @FXML
-    void createButtonClick(MouseEvent event) throws IOException {
-        //Queries.createCustomer();
+    void createButtonClick(MouseEvent event) throws IOException, SQLException {
+        Queries.createCustomer(
+                name.getText(),
+                address.getText(),
+                postalCode.getText(),
+                phone.getText(),
+                Queries.selectRegionID(regionBox.getValue())
+        );
+
         HelperFunctions.changeStage("directory-view.fxml", createButton);
 
     }
