@@ -8,9 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -26,6 +24,9 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DirectoryController implements Initializable {
@@ -34,14 +35,27 @@ public class DirectoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         customerPhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         customerDivisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+
+        apptIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        apptTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        apptDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
+        apptLocationColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+        apptContactColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentContactName"));
+        apptTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        apptStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startString"));
+        apptEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endString"));
+        apptCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentCustomerID"));
+        apptUserIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentUserID"));
         try {
             populateCustomersTableView(customerTableView);
+            populateAppointmentsTableView(appointmentTableView);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,6 +79,39 @@ public class DirectoryController implements Initializable {
     @FXML
     private TableColumn<Customer, Integer> customerDivisionIDColumn;
 
+    @FXML
+    private TableColumn<Appointment, String> apptContactColumn;
+
+    @FXML
+    private TableColumn<Appointment, Integer> apptCustomerIDColumn;
+
+    @FXML
+    private TableColumn<Appointment, String> apptDescriptionColumn;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> apptEndTimeColumn;
+
+    @FXML
+    private ToggleGroup apptFilter;
+
+    @FXML
+    private TableColumn<Appointment, Integer> apptIDColumn;
+
+    @FXML
+    private TableColumn<Appointment, String> apptLocationColumn;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> apptStartTimeColumn;
+
+    @FXML
+    private TableColumn<Appointment, String> apptTitleColumn;
+
+    @FXML
+    private TableColumn<Appointment, String> apptTypeColumn;
+
+    @FXML
+    private TableColumn<Appointment, Integer> apptUserIDColumn;
+
 
 
     public void populateCustomersTableView(TableView<Customer> tableView) throws SQLException {
@@ -86,6 +133,35 @@ public class DirectoryController implements Initializable {
                     rs.getInt("Division_ID")
             );
             tableView.getItems().add(customer);
+        }
+    }
+
+    public void populateAppointmentsTableView(TableView<Appointment> tableView) throws SQLException {
+
+        String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM appointments";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        tableView.getItems().clear();
+
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        while (rs.next()) {
+            Appointment appointment = new Appointment(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    Timestamp.valueOf(rs.getString("Start")).toLocalDateTime(),
+                    Timestamp.valueOf(rs.getString("End")).toLocalDateTime(),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+
+            tableView.getItems().add(appointment);
         }
     }
 
@@ -145,10 +221,14 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void removeCustomerClick(MouseEvent event) throws SQLException, IOException {
-        selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
-        int cID = selectedCustomer.getCustomerID();
-        Queries.deleteCustomer(cID);
-        populateCustomersTableView(customerTableView);
+        if (HelperFunctions.sendAlert(Alert.AlertType.CONFIRMATION, "Delete customer?",
+                "Are you sure you want to permanently delete this customer and all of their appointments?")) {
+            selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+            int cID = selectedCustomer.getCustomerID();
+            Queries.deleteCustomer(cID);
+            populateCustomersTableView(customerTableView);
+            HelperFunctions.sendAlert(Alert.AlertType.INFORMATION, "Customer deleted.",
+                    "Customer and related appointments have been permanently deleted.");}
     }
 
     @FXML
@@ -165,6 +245,7 @@ public class DirectoryController implements Initializable {
     @FXML
     void logoutClick(MouseEvent event) throws IOException{
         HelperFunctions.changeStage("login-view.fxml", logoutButton);
+        JDBC.closeConnection();
     }
 
 }

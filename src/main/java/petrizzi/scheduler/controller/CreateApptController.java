@@ -6,15 +6,18 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.converter.IntegerStringConverter;
 import petrizzi.scheduler.helper.HelperFunctions;
+import petrizzi.scheduler.helper.Queries;
+import petrizzi.scheduler.model.Contact;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CreateApptController implements Initializable {
 
     @FXML
-    private ComboBox<?> contactComboBox;
+    private ComboBox<String> contactComboBox;
 
     @FXML
     private Button saveButton;
@@ -23,7 +26,7 @@ public class CreateApptController implements Initializable {
     private Button cancelButton;
 
     @FXML
-    private ComboBox<?> customerIdComboBox;
+    private ComboBox<Integer> customerIdComboBox;
 
     @FXML
     private TextField descriptionField;
@@ -58,7 +61,7 @@ public class CreateApptController implements Initializable {
     private TextField typeField;
 
     @FXML
-    private ComboBox<?> userIdComboBox;
+    private ComboBox<Integer> userIdComboBox;
 
     @FXML
     void saveButtonClick(MouseEvent event) throws IOException {
@@ -77,6 +80,16 @@ public class CreateApptController implements Initializable {
         startMinutesSpinner.setValueFactory(StartMinFactory);
         endHoursSpinner.setValueFactory(EndHourFactory);
         endMinutesSpinner.setValueFactory(EndMinFactory);
+
+        try {
+            contactComboBox.getItems().setAll(Queries.selectContacts());
+            customerIdComboBox.getItems().setAll(Queries.selectCustomerIDs());
+            userIdComboBox.getItems().setAll(Queries.selectUserIDs());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
     }
 

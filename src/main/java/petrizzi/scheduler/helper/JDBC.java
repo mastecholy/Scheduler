@@ -14,13 +14,13 @@ public abstract class JDBC {
 
     private static final String driver = "com.mysql.cj.jdbc.Driver";
 
-    private static final String userName = "sqlUser";
-    private static final String userPass = "Passw0rd!";
+    /*private static final String userName = "sqlUser";
+    private static final String userPass = "Passw0rd!";*/
 
     public static Connection connection;
 
 
-    public static void openConnection() {
+    public static void openConnection(String userName, String userPass) {
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(jdbcURL, userName, userPass);

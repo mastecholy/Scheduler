@@ -25,8 +25,8 @@
         <TextField fx:id="descriptionField" layoutX="120.0" layoutY="172.0" prefWidth="200.0" />
         <Label layoutX="25.0" layoutY="211.0" text="Location" />
         <TextField fx:id="locationField" layoutX="120.0" layoutY="208.0" prefWidth="200.0" />
-        <DatePicker layoutX="120.0" layoutY="243.0" prefHeight="26.0" prefWidth="174.0" />
-        <DatePicker layoutX="120.0" layoutY="313.0" prefHeight="26.0" prefWidth="174.0" />
+        <DatePicker fx:id="startDateField" layoutX="120.0" layoutY="243.0" prefHeight="26.0" prefWidth="174.0" />
+        <DatePicker fx:id="endDateField" layoutX="120.0" layoutY="313.0" prefHeight="26.0" prefWidth="174.0" />
         <Label layoutX="25.0" layoutY="247.0" text="Start Date" />
         <Label layoutX="25.0" layoutY="317.0" text="End Date" />
         <Label layoutX="25.0" layoutY="387.0" text="Customer ID" />

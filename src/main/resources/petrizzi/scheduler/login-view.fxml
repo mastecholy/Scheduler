@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="320.0" maxWidth="450.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.LoginController">
+<AnchorPane maxHeight="320.0" maxWidth="450.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.LoginController">
    <children>
       <VBox alignment="CENTER" layoutY="-1.0" prefHeight="320.0" prefWidth="450.0">
          <children>
@@ -58,7 +57,7 @@
                         <Insets left="75.0" />
                      </HBox.margin>
                   </Label>
-                  <PasswordField fx:id="PasswordText" promptText="Enter your password." />
+                  <PasswordField fx:id="PasswordText" onKeyPressed="#onEnter" promptText="Enter your password." />
                </children>
                <padding>
                   <Insets top="10.0" />

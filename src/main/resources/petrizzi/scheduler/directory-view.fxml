@@ -33,16 +33,16 @@
       </Label>
       <TableView fx:id="appointmentTableView" layoutX="26.0" layoutY="332.0" prefHeight="225.0" prefWidth="908.0">
          <columns>
-            <TableColumn prefWidth="54.10825157165527" text="ID" />
-            <TableColumn prefWidth="74.39173889160156" text="Title" />
-            <TableColumn prefWidth="75.10307312011719" text="Description" />
-            <TableColumn prefWidth="145.347900390625" text="Location" />
-            <TableColumn prefWidth="129.152099609375" text="Contact" />
-            <TableColumn prefWidth="90.14697265625" text="Type" />
-            <TableColumn prefWidth="107.0386962890625" text="Start Date/Time" />
-            <TableColumn prefWidth="103.62890625" text="End Date/Time" />
-            <TableColumn prefWidth="78.32745361328125" text="Customer ID" />
-            <TableColumn prefWidth="49.863525390625" text="User ID" />
+            <TableColumn fx:id="apptIDColumn" prefWidth="54.10825157165527" text="ID" />
+            <TableColumn fx:id="apptTitleColumn" prefWidth="74.39173889160156" text="Title" />
+            <TableColumn fx:id="apptDescriptionColumn" prefWidth="75.10307312011719" text="Description" />
+            <TableColumn fx:id="apptLocationColumn" prefWidth="145.347900390625" text="Location" />
+            <TableColumn fx:id="apptContactColumn" prefWidth="129.152099609375" text="Contact" />
+            <TableColumn fx:id="apptTypeColumn" prefWidth="90.14697265625" text="Type" />
+            <TableColumn fx:id="apptStartTimeColumn" prefWidth="107.0386962890625" text="Start Date/Time" />
+            <TableColumn fx:id="apptEndTimeColumn" prefWidth="103.62890625" text="End Date/Time" />
+            <TableColumn fx:id="apptCustomerIDColumn" prefWidth="78.32745361328125" text="Customer ID" />
+            <TableColumn fx:id="apptUserIDColumn" prefWidth="49.863525390625" text="User ID" />
          </columns>
       </TableView>
       <Button fx:id="addCustomerButton" layoutX="177.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#addCustomerClick" text="Add" />

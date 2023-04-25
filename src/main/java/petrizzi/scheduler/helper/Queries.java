@@ -1,5 +1,8 @@
 package petrizzi.scheduler.helper;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
+import petrizzi.scheduler.model.Contact;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +20,8 @@ public abstract class Queries {
         ps.setInt(5, divisionID);
         ps.executeUpdate();
     };
+
+    //public static void createAppt(String title, String description, String location, )
 
     public static void updateCustomer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID) throws SQLException {
         String sql = "UPDATE CUSTOMERS SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
@@ -36,14 +41,52 @@ public abstract class Queries {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, ID);
         ResultSet rs = ps.executeQuery();
-        ArrayList<String> entityList = new ArrayList<>();{
-        };
+        ArrayList<String> entityList = new ArrayList<>();
         while (rs.next()){
             String division = rs.getString("Division");
             entityList.add(division);
         }
         return entityList;
     };
+
+    public static ArrayList<String> selectContacts() throws SQLException {
+        String sql = "SELECT * FROM contacts";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        ArrayList<String> contactList = new ArrayList<>();
+
+        while (rs.next()) {
+            String contact = rs.getString("Contact_Name");
+            contactList.add(contact);
+        }
+        return contactList;
+    }
+
+    public static ArrayList<Integer> selectCustomerIDs() throws SQLException {
+        String sql = "SELECT * FROM customers";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        ArrayList<Integer> custIDList = new ArrayList<>();
+
+        while (rs.next()) {
+            int ID = rs.getInt("Customer_ID");
+            custIDList.add(ID);
+        }
+        return custIDList;
+    }
+
+    public static ArrayList<Integer> selectUserIDs() throws SQLException {
+        String sql = "SELECT * FROM users";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        ArrayList<Integer> userIDList = new ArrayList<>();
+
+        while (rs.next()) {
+            int ID = rs.getInt("User_ID");
+            userIDList.add(ID);
+        }
+        return userIDList;
+    }
 
     public static int selectRegionID(String regionName) throws SQLException {
         String sql = "SELECT Division_ID FROM first_level_divisions WHERE Division = ?";
@@ -53,6 +96,16 @@ public abstract class Queries {
         if (rs.next()) {
             return rs.getInt("Division_ID");
         } else return 0;
+    }
+
+    public static String selectContactName(int contactID) throws SQLException {
+        String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, contactID);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getString("Contact_Name");
+        } else return null;
     }
 
     public static String selectRegionName(int divisionID) throws SQLException {
@@ -87,6 +140,8 @@ public abstract class Queries {
         ps.setInt(1, customerId);
         ps.executeUpdate();
     }
+
+
 
 
 

@@ -19,7 +19,7 @@ public class Main extends Application {
         stage.show();
     }
     public static void main(String[] args) throws SQLException {
-        JDBC.openConnection();
+        JDBC.openConnection("sqlUser", "Passw0rd!");
         launch();
         JDBC.closeConnection();
     }
