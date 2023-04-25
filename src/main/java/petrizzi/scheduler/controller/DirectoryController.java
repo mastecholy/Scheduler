@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import petrizzi.scheduler.Main;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.JDBC;
+import petrizzi.scheduler.helper.Queries;
 import petrizzi.scheduler.model.Appointment;
 import petrizzi.scheduler.model.Customer;
 
@@ -28,6 +29,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DirectoryController implements Initializable {
+
+    public static Customer selectedCustomer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -136,12 +139,16 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void editCustomerClick(MouseEvent event) throws IOException {
+        selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
         HelperFunctions.changeStage("edit-customer-view.fxml", editCustomerButton);
     }
 
     @FXML
-    void removeCustomerClick(MouseEvent event) {
-
+    void removeCustomerClick(MouseEvent event) throws SQLException, IOException {
+        selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+        int cID = selectedCustomer.getCustomerID();
+        Queries.deleteCustomer(cID);
+        populateCustomersTableView(customerTableView);
     }
 
     @FXML

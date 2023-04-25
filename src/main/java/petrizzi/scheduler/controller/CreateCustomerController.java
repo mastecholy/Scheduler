@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CreateCustomerController implements Initializable {
@@ -29,9 +30,10 @@ public class CreateCustomerController implements Initializable {
 
             }else {
                 String countrySelection = countryBox.getSelectionModel().getSelectedItem();
+                regionBox.setValue("Select region.");
                 int cID;
-                if (countrySelection == "United States") cID = 1;
-                else if (countrySelection == "United Kingdom") cID = 2;
+                if (Objects.equals(countrySelection, "United States")) cID = 1;
+                else if (Objects.equals(countrySelection, "United Kingdom")) cID = 2;
                 else cID = 3;
                 try {
                     List<String> regions = Queries.selectRegions(cID);
