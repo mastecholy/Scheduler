@@ -2,6 +2,8 @@ package petrizzi.scheduler.controller;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import petrizzi.scheduler.Main;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.JDBC;
@@ -25,13 +28,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class DirectoryController implements Initializable {
 
     public static Customer selectedCustomer;
+    public static Appointment selectedAppointment;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,12 +65,35 @@ public class DirectoryController implements Initializable {
         apptEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endString"));
         apptCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentCustomerID"));
         apptUserIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentUserID"));
+
         try {
             populateCustomersTableView(customerTableView);
             populateAppointmentsTableView(appointmentTableView);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        ObservableList<Appointment> appointments= FXCollections.observableArrayList();
+        appointments.addAll(appointmentTableView.getItems());
+
+
+        FilteredList<Appointment> monthFilteredList = new FilteredList<>(appointments, appointment ->
+                appointment.getAppointmentStart().getMonth().equals(LocalDateTime.now().getMonth()) &&
+                        appointment.getAppointmentStart().getYear() == LocalDateTime.now().getYear());
+        FilteredList<Appointment> weekFilteredList = new FilteredList<>(appointments, appointment ->
+                appointment.getAppointmentStart().get(WeekFields.ISO.weekOfYear()) ==
+                        LocalDateTime.now().get(WeekFields.ISO.weekOfYear()));
+
+        apptFilter.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == allRadio) {
+                appointmentTableView.setItems(appointments);
+            } else if (newValue == monthRadio) {
+                appointmentTableView.setItems(monthFilteredList);
+            } else if (newValue == weekRadio) {
+                appointmentTableView.setItems(weekFilteredList);
+            }
+        });
+
+
     }
 
     @FXML
@@ -92,7 +127,16 @@ public class DirectoryController implements Initializable {
     private TableColumn<Appointment, LocalDateTime> apptEndTimeColumn;
 
     @FXML
-    private ToggleGroup apptFilter;
+    private ToggleGroup apptFilter = new ToggleGroup();
+
+    @FXML
+    private RadioButton allRadio;
+
+    @FXML
+    private RadioButton monthRadio;
+
+    @FXML
+    private RadioButton weekRadio;
 
     @FXML
     private TableColumn<Appointment, Integer> apptIDColumn;
@@ -111,7 +155,6 @@ public class DirectoryController implements Initializable {
 
     @FXML
     private TableColumn<Appointment, Integer> apptUserIDColumn;
-
 
 
     public void populateCustomersTableView(TableView<Customer> tableView) throws SQLException {
@@ -145,8 +188,6 @@ public class DirectoryController implements Initializable {
 
         tableView.getItems().clear();
 
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
         while (rs.next()) {
             Appointment appointment = new Appointment(
                     rs.getInt("Appointment_ID"),
@@ -154,8 +195,8 @@ public class DirectoryController implements Initializable {
                     rs.getString("Description"),
                     rs.getString("Location"),
                     rs.getString("Type"),
-                    Timestamp.valueOf(rs.getString("Start")).toLocalDateTime(),
-                    Timestamp.valueOf(rs.getString("End")).toLocalDateTime(),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
                     rs.getInt("Customer_ID"),
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
@@ -164,6 +205,7 @@ public class DirectoryController implements Initializable {
             tableView.getItems().add(appointment);
         }
     }
+
 
 
     @FXML
@@ -205,6 +247,7 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void editApptClick(MouseEvent event) throws IOException {
+        selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
         HelperFunctions.changeStage("edit-appt-view.fxml", editApptButton);
     }
 
@@ -227,14 +270,23 @@ public class DirectoryController implements Initializable {
             int cID = selectedCustomer.getCustomerID();
             Queries.deleteCustomer(cID);
             populateCustomersTableView(customerTableView);
+            populateAppointmentsTableView(appointmentTableView);
             HelperFunctions.sendAlert(Alert.AlertType.INFORMATION, "Customer deleted.",
                     "Customer and related appointments have been permanently deleted.");}
     }
 
     @FXML
-    void removeApptClick(MouseEvent event) {
+    void removeAppointmentClick(MouseEvent event) throws SQLException {
+        if (HelperFunctions.sendAlert(Alert.AlertType.CONFIRMATION, "Delete appointment?",
+                "Are you sure you want to permanently delete this appointment?")){
+            selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
+            int aID = selectedAppointment.getAppointmentID();
+            Queries.deleteAppointment(aID);
+            populateAppointmentsTableView(appointmentTableView);
+            HelperFunctions.sendAlert(Alert.AlertType.INFORMATION, "Appointment deleted.",
+                    "Appointment has been permanently deleted.");}
+        }
 
-    }
 
     @FXML
     void exitClick(MouseEvent event){

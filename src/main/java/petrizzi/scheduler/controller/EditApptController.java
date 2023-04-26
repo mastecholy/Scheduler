@@ -4,35 +4,45 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.util.converter.IntegerStringConverter;
 import petrizzi.scheduler.helper.HelperFunctions;
+import petrizzi.scheduler.helper.Queries;
+import petrizzi.scheduler.model.Appointment;
+import petrizzi.scheduler.model.Contact;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class EditApptController implements Initializable {
 
     @FXML
-    private ComboBox<?> contactComboBox;
-
-    @FXML
-    private ComboBox<?> customerIdComboBox;
-
-    @FXML
-    private TextField descriptionField;
-
-    @FXML
-    private Spinner<Integer> endHoursSpinner;
-
-    @FXML
-    private Spinner<Integer> endMinutesSpinner;
+    private ComboBox<String> contactComboBox;
 
     @FXML
     private Button saveButton;
 
     @FXML
     private Button cancelButton;
+
+    @FXML
+    private ComboBox<Integer> customerIdComboBox;
+
+    @FXML
+    private TextField descriptionField;
+
+    @FXML
+    private DatePicker startDateField;
+
+    @FXML
+    private DatePicker endDateField;
+
+    @FXML
+    private Spinner<Integer> endHoursSpinner;
+
+    @FXML
+    private Spinner<Integer> endMinutesSpinner;
 
     @FXML
     private TextField idField;
@@ -48,7 +58,6 @@ public class EditApptController implements Initializable {
 
     SpinnerValueFactory<Integer> StartMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
     SpinnerValueFactory<Integer> EndMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
-
     @FXML
     private Spinner<Integer> startMinutesSpinner;
 
@@ -59,11 +68,29 @@ public class EditApptController implements Initializable {
     private TextField typeField;
 
     @FXML
-    private ComboBox<?> userIdComboBox;
+    private ComboBox<Integer> userIdComboBox;
 
     @FXML
-    void saveButtonClick(MouseEvent event) throws IOException {
-        ////// add persistence
+    void saveButtonClick(MouseEvent event) throws IOException, SQLException {
+        int startHour = startHoursSpinner.getValue();
+        int startMin = startMinutesSpinner.getValue();
+        int endHour = endHoursSpinner.getValue();
+        int endMin = endMinutesSpinner.getValue();
+        Queries.updateAppointment(
+                Integer.parseInt(idField.getText()),
+                titleField.getText(),
+                typeField.getText(),
+                descriptionField.getText(),
+                locationField.getText(),
+                startDateField.getValue(),
+                LocalTime.of(startHour, startMin),
+                endDateField.getValue(),
+                LocalTime.of(endHour, endMin),
+                customerIdComboBox.getValue(),
+                userIdComboBox.getValue(),
+                contactComboBox.getValue())
+        ;
+
         HelperFunctions.changeStage("directory-view.fxml", saveButton);
     }
 
@@ -79,6 +106,32 @@ public class EditApptController implements Initializable {
         endHoursSpinner.setValueFactory(EndHourFactory);
         endMinutesSpinner.setValueFactory(EndMinFactory);
 
+        try {
+            contactComboBox.getItems().setAll(Queries.selectContactNames());
+            customerIdComboBox.getItems().setAll(Queries.selectCustomerIDs());
+            userIdComboBox.getItems().setAll(Queries.selectUserIDs());
+            setAppointment(DirectoryController.selectedAppointment);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void setAppointment(Appointment appointment) {
+        idField.setText(String.valueOf(appointment.getAppointmentID()));
+        titleField.setText(appointment.getAppointmentTitle());
+        typeField.setText(appointment.getAppointmentTitle());
+        descriptionField.setText(appointment.getAppointmentDescription());
+        locationField.setText(appointment.getAppointmentLocation());
+        startDateField.setValue(appointment.getAppointmentStart().toLocalDate());
+        startHoursSpinner.getValueFactory().setValue(appointment.getAppointmentStart().getHour());
+        startMinutesSpinner.getValueFactory().setValue(appointment.getAppointmentStart().getMinute());
+        endDateField.setValue(appointment.getAppointmentEnd().toLocalDate());
+        endHoursSpinner.getValueFactory().setValue(appointment.getAppointmentEnd().getHour());
+        endMinutesSpinner.getValueFactory().setValue(appointment.getAppointmentEnd().getMinute());
+        customerIdComboBox.setValue(appointment.getAppointmentCustomerID());
+        userIdComboBox.setValue(appointment.getAppointmentUserID());
+        contactComboBox.setValue(appointment.getAppointmentContactName());
     }
 
 }

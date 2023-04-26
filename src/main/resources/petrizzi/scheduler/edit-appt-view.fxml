@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="577.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.CreateApptController">
+<AnchorPane prefHeight="577.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petrizzi.scheduler.controller.EditApptController">
     <children>
         <Label layoutX="25.0" layoutY="29.0" text="Edit Appointment">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
         <Label layoutX="25.0" layoutY="67.0" text="ID" />
-        <TextField fx:id="idField" layoutX="120.0" layoutY="64.0" prefWidth="200.0" />
+        <TextField fx:id="idField" disable="true" layoutX="120.0" layoutY="64.0" prefWidth="200.0" text="Auto Generated" />
         <Label layoutX="25.0" layoutY="103.0" text="Title" />
         <TextField fx:id="titleField" layoutX="120.0" layoutY="100.0" prefWidth="200.0" />
         <Label layoutX="25.0" layoutY="139.0" text="Type" />

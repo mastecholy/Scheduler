@@ -33,16 +33,16 @@
       </Label>
       <TableView fx:id="appointmentTableView" layoutX="26.0" layoutY="332.0" prefHeight="225.0" prefWidth="908.0">
          <columns>
-            <TableColumn fx:id="apptIDColumn" prefWidth="54.10825157165527" text="ID" />
-            <TableColumn fx:id="apptTitleColumn" prefWidth="74.39173889160156" text="Title" />
-            <TableColumn fx:id="apptDescriptionColumn" prefWidth="75.10307312011719" text="Description" />
-            <TableColumn fx:id="apptLocationColumn" prefWidth="145.347900390625" text="Location" />
-            <TableColumn fx:id="apptContactColumn" prefWidth="129.152099609375" text="Contact" />
-            <TableColumn fx:id="apptTypeColumn" prefWidth="90.14697265625" text="Type" />
-            <TableColumn fx:id="apptStartTimeColumn" prefWidth="107.0386962890625" text="Start Date/Time" />
-            <TableColumn fx:id="apptEndTimeColumn" prefWidth="103.62890625" text="End Date/Time" />
-            <TableColumn fx:id="apptCustomerIDColumn" prefWidth="78.32745361328125" text="Customer ID" />
-            <TableColumn fx:id="apptUserIDColumn" prefWidth="49.863525390625" text="User ID" />
+            <TableColumn fx:id="apptIDColumn" prefWidth="44.5" text="ID" />
+            <TableColumn fx:id="apptTitleColumn" prefWidth="64.5" text="Title" />
+            <TableColumn fx:id="apptDescriptionColumn" prefWidth="95.5" text="Description" />
+            <TableColumn fx:id="apptLocationColumn" prefWidth="91.5" text="Location" />
+            <TableColumn fx:id="apptContactColumn" prefWidth="107.5" text="Contact" />
+            <TableColumn fx:id="apptTypeColumn" prefWidth="109.5" text="Type" />
+            <TableColumn fx:id="apptStartTimeColumn" prefWidth="141.5" text="Start Date/Time" />
+            <TableColumn fx:id="apptEndTimeColumn" prefWidth="132.0" text="End Date/Time" />
+            <TableColumn fx:id="apptCustomerIDColumn" prefWidth="72.5" text="Customer ID" />
+            <TableColumn fx:id="apptUserIDColumn" prefWidth="48.0" text="User ID" />
          </columns>
       </TableView>
       <Button fx:id="addCustomerButton" layoutX="177.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#addCustomerClick" text="Add" />
@@ -50,14 +50,14 @@
       <Button fx:id="removeCustomerButton" layoutX="265.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#removeCustomerClick" text="Remove" />
       <Button fx:id="addApptButton" layoutX="177.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#addApptClick" text="Add" />
       <Button fx:id="editApptButton" layoutX="222.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#editApptClick" text="Edit" />
-      <Button layoutX="267.0" layoutY="302.0" mnemonicParsing="false" text="Remove" />
+      <Button fx:id="removeAppointmentButton" layoutX="267.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#removeAppointmentClick" text="Remove" />
       <Label layoutX="545.0" layoutY="306.0" text="Filter by:" />
-      <RadioButton layoutX="613.0" layoutY="306.0" mnemonicParsing="false" selected="true" text="All">
+      <RadioButton fx:id="allRadio" layoutX="613.0" layoutY="306.0" mnemonicParsing="false" selected="true" text="All">
          <toggleGroup>
             <ToggleGroup fx:id="apptFilter" />
          </toggleGroup></RadioButton>
-      <RadioButton layoutX="677.0" layoutY="306.0" mnemonicParsing="false" text="This Month" toggleGroup="$apptFilter" />
-      <RadioButton layoutX="793.0" layoutY="306.0" mnemonicParsing="false" text="This Week" toggleGroup="$apptFilter" />
+      <RadioButton fx:id="monthRadio" layoutX="677.0" layoutY="306.0" mnemonicParsing="false" text="This Month" toggleGroup="$apptFilter" />
+      <RadioButton fx:id="weekRadio" layoutX="793.0" layoutY="306.0" mnemonicParsing="false" text="This Week" toggleGroup="$apptFilter" />
       <Button fx:id="reportsButton" layoutX="643.0" layoutY="587.0" mnemonicParsing="false" text="Reports">
          <font>
             <Font size="18.0" />

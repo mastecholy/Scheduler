@@ -39,7 +39,7 @@ public class Appointment {
     }
 
     public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation,
-                       String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmetEnd,
+                       String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
                        int appointmentCustomerID, int appointmentUserID, int appointmentContactID) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -49,13 +49,13 @@ public class Appointment {
         this.appointmentLocation = appointmentLocation;
         this.appointmentType = appointmentType;
         this.appointmentStart = appointmentStart;
-        this.appointmentEnd = appointmetEnd;
+        this.appointmentEnd = appointmentEnd;
         this.appointmentCustomerID = appointmentCustomerID;
         this.appointmentUserID = appointmentUserID;
         this.appointmentContactID = appointmentContactID;
         this.appointmentContactName = Queries.selectContactName(appointmentContactID);
         this.startString = appointmentStart.format(formatter);
-        this.endString = appointmentStart.format(formatter);
+        this.endString = appointmentEnd.format(formatter);
     }
 
     public int getAppointmentID() {
@@ -145,4 +145,7 @@ public class Appointment {
     public void setAppointmentContactID(int appointmentContactID) {
         this.appointmentContactID = appointmentContactID;
     }
+
 }
+
+

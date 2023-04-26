@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.util.converter.IntegerStringConverter;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.Queries;
 import petrizzi.scheduler.model.Contact;
@@ -12,7 +11,10 @@ import petrizzi.scheduler.model.Contact;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class CreateApptController implements Initializable {
 
@@ -30,6 +32,12 @@ public class CreateApptController implements Initializable {
 
     @FXML
     private TextField descriptionField;
+
+    @FXML
+    private DatePicker startDateField;
+
+    @FXML
+    private DatePicker endDateField;
 
     @FXML
     private Spinner<Integer> endHoursSpinner;
@@ -64,8 +72,28 @@ public class CreateApptController implements Initializable {
     private ComboBox<Integer> userIdComboBox;
 
     @FXML
-    void saveButtonClick(MouseEvent event) throws IOException {
-        ////// add persistence
+    void saveButtonClick(MouseEvent event) throws IOException, SQLException {
+        ZoneId easternTime = ZoneId.of("America/New York");
+
+        int startHour = startHoursSpinner.getValue();
+        int startMin = startMinutesSpinner.getValue();
+        int endHour = endHoursSpinner.getValue();
+        int endMin = endMinutesSpinner.getValue();
+
+        if ((LocalTime.of(startHour, startMin)).isAfter())
+        Queries.createAppointment(
+                titleField.getText(),
+                typeField.getText(),
+                descriptionField.getText(),
+                locationField.getText(),
+                startDateField.getValue(),
+                LocalTime.of(startHour, startMin),
+                endDateField.getValue(),
+                LocalTime.of(endHour, endMin),
+                customerIdComboBox.getValue(),
+                userIdComboBox.getValue(),
+                contactComboBox.getValue());
+
         HelperFunctions.changeStage("directory-view.fxml", saveButton);
     }
 
@@ -82,14 +110,12 @@ public class CreateApptController implements Initializable {
         endMinutesSpinner.setValueFactory(EndMinFactory);
 
         try {
-            contactComboBox.getItems().setAll(Queries.selectContacts());
+            contactComboBox.getItems().setAll(Queries.selectContactNames());
             customerIdComboBox.getItems().setAll(Queries.selectCustomerIDs());
             userIdComboBox.getItems().setAll(Queries.selectUserIDs());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
 
     }
 
