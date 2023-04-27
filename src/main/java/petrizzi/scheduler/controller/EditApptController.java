@@ -10,9 +10,14 @@ import petrizzi.scheduler.model.Appointment;
 import petrizzi.scheduler.model.Contact;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ResourceBundle;
 
 public class EditApptController implements Initializable {
@@ -71,27 +76,55 @@ public class EditApptController implements Initializable {
     private ComboBox<Integer> userIdComboBox;
 
     @FXML
-    void saveButtonClick(MouseEvent event) throws IOException, SQLException {
-        int startHour = startHoursSpinner.getValue();
-        int startMin = startMinutesSpinner.getValue();
-        int endHour = endHoursSpinner.getValue();
-        int endMin = endMinutesSpinner.getValue();
-        Queries.updateAppointment(
-                Integer.parseInt(idField.getText()),
-                titleField.getText(),
-                typeField.getText(),
-                descriptionField.getText(),
-                locationField.getText(),
-                startDateField.getValue(),
-                LocalTime.of(startHour, startMin),
-                endDateField.getValue(),
-                LocalTime.of(endHour, endMin),
-                customerIdComboBox.getValue(),
-                userIdComboBox.getValue(),
-                contactComboBox.getValue())
-        ;
+    void saveButtonClick(MouseEvent event) throws IOException, SQLException, InvocationTargetException {
+        try {
+            ZoneId easternZone = ZoneId.of("America/New_York");
 
-        HelperFunctions.changeStage("directory-view.fxml", saveButton);
+            LocalDate startDay = startDateField.getValue();
+            LocalDate endDay = endDateField.getValue();
+            int startHour = startHoursSpinner.getValue();
+            int startMin = startMinutesSpinner.getValue();
+            int endHour = endHoursSpinner.getValue();
+            int endMin = endMinutesSpinner.getValue();
+            LocalDateTime localStartTime = LocalDateTime.of(startDay, LocalTime.of(startHour, startMin));
+            LocalDateTime localEndTime = LocalDateTime.of(endDay, LocalTime.of(endHour, endMin));
+
+            LocalDateTime easternOpenDateTime = LocalDateTime.of(startDay, LocalTime.of(8, 0));
+            LocalDateTime easternCloseDateTime = LocalDateTime.of(startDay, LocalTime.of(22, 0));
+            LocalDateTime localOpenTime = easternOpenDateTime.atZone(easternZone).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime localCloseTime = easternCloseDateTime.atZone(easternZone).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+
+
+            if ((localStartTime.isBefore(ChronoLocalDateTime.from(localOpenTime)) || localStartTime.isAfter(ChronoLocalDateTime.from(localCloseTime)) ||
+                    localEndTime.isBefore(ChronoLocalDateTime.from(localOpenTime)) || localEndTime.isAfter(ChronoLocalDateTime.from(localCloseTime)))) {
+                HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Appointment Time",
+                        "Cannot schedule appointment outside of Eastern Time office hours.",
+                        "Appointment must take place between 8:00 and 22:00 Eastern Time.");
+
+            } else if (Queries.checkAppointmentOverlap(customerIdComboBox.getValue(), localStartTime, localEndTime, Integer.parseInt(idField.getText()))) {
+                HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Appointment", "Customer appointment overlap!",
+                        "Selected customer has an appointment during this time.");
+            } else if (localStartTime.isAfter(localEndTime)){
+                HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Appointment", "Invalid appointment times.", "Appointment start time must be before appointment end time.");
+            }else {
+
+                Queries.updateAppointment(
+                        Integer.parseInt(idField.getText()),
+                        titleField.getText(),
+                        typeField.getText(),
+                        descriptionField.getText(),
+                        locationField.getText(),
+                        localStartTime,
+                        localEndTime,
+                        customerIdComboBox.getValue(),
+                        userIdComboBox.getValue(),
+                        contactComboBox.getValue());
+
+                HelperFunctions.changeStage("directory-view.fxml", saveButton);
+            }
+        } catch (Exception e){
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Field Information", "Please fill ALL fields with valid information and data types.");
+        }
     }
 
     @FXML

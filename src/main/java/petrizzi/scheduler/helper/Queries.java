@@ -22,16 +22,15 @@ public abstract class Queries {
         ps.executeUpdate();
     };
 
-    public static void createAppointment(String title, String type, String description, String location, LocalDate startDate,
-                                         LocalTime startTime, LocalDate endDate, LocalTime endTime, int customerID, int userID, String contactName) throws SQLException {
+    public static void createAppointment(String title, String type, String description, String location, LocalDateTime start, LocalDateTime end, int customerID, int userID, String contactName) throws SQLException {
         String sql = "INSERT INTO appointments (Title, Type, Description, Location, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
         ps.setString(2, type);
         ps.setString(3, description);
         ps.setString(4, location);
-        ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.of(startDate, startTime)));
-        ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.of(endDate, endTime)));
+        ps.setTimestamp(5, Timestamp.valueOf(start));
+        ps.setTimestamp(6, Timestamp.valueOf(end));
         ps.setInt(7, customerID);
         ps.setInt(8, userID);
         ps.setInt(9, Queries.selectContactID(contactName));
@@ -50,16 +49,15 @@ public abstract class Queries {
         ps.executeUpdate();
     };
 
-    public static void updateAppointment(int ID, String title, String type, String description, String location, LocalDate startDate,
-                                         LocalTime startTime, LocalDate endDate, LocalTime endTime, int customerID, int userID, String contactName) throws SQLException {
+    public static void updateAppointment(int ID, String title, String type, String description, String location, LocalDateTime start, LocalDateTime end, int customerID, int userID, String contactName) throws SQLException {
         String sql = "UPDATE appointments SET Title=?, Type=?, Description=?, Location=?, Start=?, End=?, Customer_ID=?, User_ID=?, Contact_ID=? WHERE Appointment_ID=?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
         ps.setString(2, type);
         ps.setString(3, description);
         ps.setString(4, location);
-        ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.of(startDate, startTime)));
-        ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.of(endDate, endTime)));
+        ps.setTimestamp(5, Timestamp.valueOf(start));
+        ps.setTimestamp(6, Timestamp.valueOf(end));
         ps.setInt(7, customerID);
         ps.setInt(8, userID);
         ps.setInt(9, Queries.selectContactID(contactName));
@@ -217,6 +215,42 @@ public abstract class Queries {
         ps.setInt(1, appointmentID);
         ps.executeUpdate();
     }
+
+    public static boolean checkAppointmentOverlap (int customerID, LocalDateTime start, LocalDateTime end) throws SQLException {
+        String sql = "SELECT * FROM appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            LocalDateTime existingStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime existingEnd = rs.getTimestamp("End").toLocalDateTime();
+            if ((start.isAfter(existingStart.minusMinutes(1)) && start.isBefore(existingEnd)) ||
+                    (end.isBefore(existingEnd.plusMinutes(1)) && end.isAfter(existingStart))) {
+                return true; //Appointment has an overlap.
+            }
+        }
+        return false; //Appointment has no overlap.
+    }
+
+    public static boolean checkAppointmentOverlap(int customerID, LocalDateTime start, LocalDateTime end, int currentAppointmentID) throws SQLException {
+        String sql = "SELECT * FROM appointments WHERE Customer_ID = ? AND Appointment_ID != ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        ps.setInt(2, currentAppointmentID);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            LocalDateTime existingStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime existingEnd = rs.getTimestamp("End").toLocalDateTime();
+            if ((start.isAfter(existingStart) && start.isBefore(existingEnd)) ||
+                    (end.isBefore(existingEnd) && end.isAfter(existingStart))) {
+                return true; //Appointment has an overlap.
+            }
+        }
+        return false; //Appointment has no overlap.
+    }
+
 
 
 

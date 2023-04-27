@@ -1,5 +1,6 @@
 package petrizzi.scheduler;
 
+import com.mysql.cj.jdbc.JdbcConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,8 +20,9 @@ public class Main extends Application {
         stage.show();
     }
     public static void main(String[] args) throws SQLException {
-        //JDBC.openConnection("sqlUser", "Passw0rd!");
         launch();
-        JDBC.closeConnection();
+        try {
+            JDBC.closeConnection();
+        } catch (Exception ignored) {}
     }
 }

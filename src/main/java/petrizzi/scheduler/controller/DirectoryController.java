@@ -19,6 +19,7 @@ import petrizzi.scheduler.Main;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.JDBC;
 import petrizzi.scheduler.helper.Queries;
+import petrizzi.scheduler.helper.ReportDialog;
 import petrizzi.scheduler.model.Appointment;
 import petrizzi.scheduler.model.Customer;
 
@@ -247,6 +248,10 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void editApptClick(MouseEvent event) throws IOException {
+        if (appointmentTableView.getSelectionModel().getSelectedItem()==null) {
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "No customer selected.", "You must select an appointment to edit.");
+            return;
+        }
         selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
         HelperFunctions.changeStage("edit-appt-view.fxml", editApptButton);
     }
@@ -258,12 +263,20 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void editCustomerClick(MouseEvent event) throws IOException {
+        if (customerTableView.getSelectionModel().getSelectedItem()==null) {
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "No customer selected.", "You must select a customer to edit.");
+            return;
+        }
         selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
         HelperFunctions.changeStage("edit-customer-view.fxml", editCustomerButton);
     }
 
     @FXML
     void removeCustomerClick(MouseEvent event) throws SQLException, IOException {
+        if (customerTableView.getSelectionModel().getSelectedItem()==null) {
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "No customer selected.", "You must select a customer to remove.");
+            return;
+        }
         if (HelperFunctions.sendAlert(Alert.AlertType.CONFIRMATION, "Delete customer?",
                 "Are you sure you want to permanently delete this customer and all of their appointments?")) {
             selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
@@ -277,6 +290,10 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void removeAppointmentClick(MouseEvent event) throws SQLException {
+        if (appointmentTableView.getSelectionModel().getSelectedItem()==null) {
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "No customer selected.", "You must select an appointment to remove.");
+            return;
+        }
         if (HelperFunctions.sendAlert(Alert.AlertType.CONFIRMATION, "Delete appointment?",
                 "Are you sure you want to permanently delete this appointment?")){
             selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
@@ -287,6 +304,12 @@ public class DirectoryController implements Initializable {
                     "Appointment has been permanently deleted.");}
         }
 
+    @FXML
+    void reportsClick(MouseEvent event){
+        ReportDialog dialog = new ReportDialog();
+        dialog.showAndWait();
+
+    }
 
     @FXML
     void exitClick(MouseEvent event){

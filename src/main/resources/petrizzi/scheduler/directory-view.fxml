@@ -58,7 +58,7 @@
          </toggleGroup></RadioButton>
       <RadioButton fx:id="monthRadio" layoutX="677.0" layoutY="306.0" mnemonicParsing="false" text="This Month" toggleGroup="$apptFilter" />
       <RadioButton fx:id="weekRadio" layoutX="793.0" layoutY="306.0" mnemonicParsing="false" text="This Week" toggleGroup="$apptFilter" />
-      <Button fx:id="reportsButton" layoutX="643.0" layoutY="587.0" mnemonicParsing="false" text="Reports">
+      <Button fx:id="reportsButton" layoutX="643.0" layoutY="587.0" mnemonicParsing="false" onMouseClicked="#reportsClick" text="Reports">
          <font>
             <Font size="18.0" />
          </font>

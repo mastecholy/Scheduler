@@ -14,9 +14,6 @@ public abstract class JDBC {
 
     private static final String driver = "com.mysql.cj.jdbc.Driver";
 
-    /*private static final String userName = "sqlUser";
-    private static final String userPass = "Passw0rd!";*/
-
     public static Connection connection;
 
 
@@ -25,8 +22,7 @@ public abstract class JDBC {
             Class.forName(driver);
             connection = DriverManager.getConnection(jdbcURL, userName, userPass);
             System.out.println("Connection open.");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException | SQLException ignored) {
         }
     }
 
@@ -34,8 +30,7 @@ public abstract class JDBC {
         try{
             connection.close();
             System.out.println("Connection closed.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ignored) {
         }
 
     }

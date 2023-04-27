@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -37,32 +38,70 @@ public class LoginController implements Initializable {
     private Label ZoneIDLabel;
 
     @FXML
+    private Label locationLabel;
+
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label usernameLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    ResourceBundle bundle;
+
+    @FXML
     void onEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
+            Locale userLocale = Locale.getDefault();
+            if (userLocale.getLanguage().equals("fr")) {
+                bundle = ResourceBundle.getBundle("fr-bundle");
+            } else {
+                bundle = ResourceBundle.getBundle("en-bundle");
+            }
             try {
                 JDBC.openConnection(UsernameText.getText(), PasswordText.getText());
                 HelperFunctions.changeStage("directory-view.fxml", LoginButton);
                 HelperFunctions.greeting();
             } catch (IOException e) {
-                HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid login information.");
+                HelperFunctions.sendAlert(Alert.AlertType.ERROR, bundle.getString("error.title"), bundle.getString("error.content"));
             }
         }
     }
 
     @FXML
     void LoginButtonClick(ActionEvent event) throws IOException {
+        Locale userLocale = Locale.getDefault();
+        if (userLocale.getLanguage().equals("fr")) {
+            bundle = ResourceBundle.getBundle("fr-bundle");
+        } else {
+            bundle = ResourceBundle.getBundle("en-bundle");
+        }
         try {
             JDBC.openConnection(UsernameText.getText(), PasswordText.getText());
             HelperFunctions.changeStage("directory-view.fxml", LoginButton);
             HelperFunctions.greeting();
         } catch (IOException e) {
-            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid login information.");
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, bundle.getString("error.title"), bundle.getString("error.content"));
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale userLocale = Locale.getDefault();
+        if (userLocale.getLanguage().equals("fr")) {
+            bundle = ResourceBundle.getBundle("fr-bundle");
+        } else {
+            bundle = ResourceBundle.getBundle("en-bundle");
+        }
         ZoneIDLabel.setText(String.valueOf(ZoneId.systemDefault()));
-
+        titleLabel.setText(bundle.getString("label.title"));
+        usernameLabel.setText(bundle.getString("label.username"));
+        passwordLabel.setText(bundle.getString("label.password"));
+        locationLabel.setText(bundle.getString("label.location"));
+        UsernameText.setPromptText(bundle.getString("prompt.username"));
+        PasswordText.setPromptText(bundle.getString("prompt.password"));
+        LoginButton.setText(bundle.getString("button.login"));
     }
 }

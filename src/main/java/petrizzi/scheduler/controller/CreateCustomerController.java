@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.Queries;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -81,16 +83,26 @@ public class CreateCustomerController implements Initializable {
     }
 
     @FXML
-    void createButtonClick(MouseEvent event) throws IOException, SQLException {
-        Queries.createCustomer(
-                name.getText(),
-                address.getText(),
-                postalCode.getText(),
-                phone.getText(),
-                Queries.selectRegionID(regionBox.getValue())
-        );
+    void createButtonClick(MouseEvent event) throws IOException, SQLException, InvocationTargetException {
+        if(name.getText().isBlank() || address.getText().isBlank() || postalCode.getText().isBlank() || phone.getText().isBlank()) {
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Customer Information", "Please fill ALL fields with valid information and data types.");
+            return;
+        }
+        try {
 
-        HelperFunctions.changeStage("directory-view.fxml", createButton);
+
+            Queries.createCustomer(
+                    name.getText(),
+                    address.getText(),
+                    postalCode.getText(),
+                    phone.getText(),
+                    Queries.selectRegionID(regionBox.getValue())
+            );
+
+            HelperFunctions.changeStage("directory-view.fxml", createButton);
+        } catch (Exception e) {
+            HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Customer Information", "Please fill ALL fields with valid information and data types.");
+        }
 
     }
 
