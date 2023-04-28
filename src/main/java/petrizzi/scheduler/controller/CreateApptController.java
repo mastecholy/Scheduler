@@ -18,61 +18,118 @@ import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for create-appt-view.fxml that allows the user to generate new appointments.
+ */
 public class CreateApptController implements Initializable {
 
+    /**
+     * Combo box for selecting appointment Contact.
+     */
     @FXML
     private ComboBox<String> contactComboBox;
 
+    /**
+     * Button for saving appointment.
+     */
     @FXML
     private Button saveButton;
 
+    /**
+     * Button for cancelling appointment creation.
+     */
     @FXML
     private Button cancelButton;
 
+    /**
+     * Combo box for selecting appointment Customer ID.
+     */
     @FXML
     private ComboBox<Integer> customerIdComboBox;
 
+    /**
+     * Text field for the user to input appointment description.
+     */
     @FXML
     private TextField descriptionField;
 
+    /**
+     * DatePicker for the user to select appointment start date.
+     */
     @FXML
     private DatePicker startDateField;
 
+    /**
+     * DatePicker for the user to select appointment end date.
+     */
     @FXML
     private DatePicker endDateField;
 
+    /**
+     * Spinner for the user to select or input appointment end hour.
+     */
     @FXML
     private Spinner<Integer> endHoursSpinner;
 
+    /**
+     * Spinner for the user to select or input appointment end minute.
+     */
     @FXML
     private Spinner<Integer> endMinutesSpinner;
 
-    @FXML
-    private TextField idField;
-
+    /**
+     * Text field for the user to enter appointment location.
+     */
     @FXML
     private TextField locationField;
 
+    /**
+     * Spinner for the user to select appointment start hour.
+     */
     @FXML
     private Spinner<Integer> startHoursSpinner;
 
+    /**
+     * Factory for time spinner.
+     */
     SpinnerValueFactory<Integer> StartHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
     SpinnerValueFactory<Integer> EndHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
 
     SpinnerValueFactory<Integer> StartMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
     SpinnerValueFactory<Integer> EndMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
+
+    /**
+     * Spinner for the user to select appointment start minute.
+     */
     @FXML
     private Spinner<Integer> startMinutesSpinner;
 
+    /**
+     * Text field for the user to input appointment title.
+     */
     @FXML
     private TextField titleField;
 
+    /**
+     * Text field for the user to input appointment type.
+     */
     @FXML
     private TextField typeField;
 
+    /**
+     * ComboBox for the user to select an appointment UserID.
+     */
     @FXML
     private ComboBox<Integer> userIdComboBox;
 
+    /**
+     * On Click mouse event that retrieves values from the form, validates them and then calls the createAppointment
+     * query function with them.
+     * @param event Triggers on click of the saveButton.
+     * @throws IOException
+     * @throws SQLException
+     * @throws InvocationTargetException
+     */
     @FXML
     void saveButtonClick(MouseEvent event) throws IOException, SQLException, InvocationTargetException {
         try {
@@ -125,11 +182,21 @@ public class CreateApptController implements Initializable {
         }
     }
 
+    /**
+     * MouseEvent for the cancel button that returns the user to the directory.
+     * @param event Triggers on click of the cancelButton.
+     * @throws IOException
+     */
     @FXML
     void cancelButtonClick(MouseEvent event) throws IOException {
         HelperFunctions.changeStage("directory-view.fxml", cancelButton);
     }
 
+    /**
+     * Initialize method that sets spinner value factories and comboBox items.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startHoursSpinner.setValueFactory(StartHourFactory);

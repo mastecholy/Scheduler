@@ -2,6 +2,7 @@ package petrizzi.scheduler.helper;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,8 +24,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class for a custom Dialog that gives the user 3 reports to choose from.
+ */
 public class ReportDialog extends Dialog<Void> {
 
+    /**
+     * Constructor method that creates a new Report Dialog - CONTAINS LAMBDA
+     * <p>
+     * The Report Dialog allows the user to generate one of three reports from a radio group, and either
+     * confirms their choice with null selection verification or allows them to close the dialog.
+     * <p>
+     * LAMBDA JUSTIFICATION - The lambda used here both set the onAction event of the
+     * button immediately after it is created, allowing me to link the event to the button and to
+     * define the behavior of the event in a relevant location without needing a separate declaration.
+     * Since the generateButton that uses the lambda calls a different method depending on which radio button is
+     * selected (using else ifs) and then closes, having that functionality in the constructor is easier than implementing that
+     * functionality elsewhere.
+     */
     public ReportDialog() {
 
         VBox content = new VBox();
@@ -75,16 +92,15 @@ public class ReportDialog extends Dialog<Void> {
         buttons.getChildren().add(generateButton);
 
         Button cancelButton = new Button("Cancel Report");
-        cancelButton.setOnAction(event -> {
-            Node source = (Node) event.getSource();
-            Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
-        });
+        cancelButton.setOnAction(this::closeDialog);
         buttons.getChildren().add(cancelButton);
 
         getDialogPane().setContent(content);
     }
 
+    /**
+     * Simple class used to populate an observable list with different data types for multiple entities.
+     */
     public static class ReportData {
         Month month;
         String type;
@@ -109,6 +125,13 @@ public class ReportDialog extends Dialog<Void> {
         }
     }
 
+    /**
+     * Method generates a new dialog with a table view containing # of customer appointments by type and month.
+     * <p>
+     * Queries the database and adds the result to a ReportData observable array list before setting the table view
+     * and generating the dialog.
+     * @throws SQLException
+     */
     private void generateReport1() throws SQLException {
 
         ObservableList<ReportData> data = FXCollections.observableArrayList();
@@ -142,20 +165,10 @@ public class ReportDialog extends Dialog<Void> {
         tableView.setItems(data);
 
         Button close = new Button("Close Report");
-        close.setOnAction(event -> {
-            Node source = (Node) event.getSource();
-            Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
-        });
+        close.setOnAction(this::closeDialog);
 
         Button backToReports = new Button ("Back to Reports");
-        backToReports.setOnAction(event -> {
-            Node source = (Node) event.getSource();
-            Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
-            ReportDialog dialog = new ReportDialog();
-            dialog.showAndWait();
-        });
+        backToReports.setOnAction(this::closeAndBack);
 
 
         Dialog<Void> dialog = new Dialog<>();
@@ -172,8 +185,10 @@ public class ReportDialog extends Dialog<Void> {
     }
 
 
-
-
+    /**
+     * Generates a custom dialog that shows the schedule and appointment info for each contact in a tree view.
+     * @throws SQLException
+     */
     private void generateReport2() throws SQLException {
         String sql = "SELECT c.Contact_ID, c.Contact_Name, a.Appointment_ID, a.Title, a.Type, a.Description, a.Start, a.End, a.Customer_ID " +
                 "FROM contacts c " +
@@ -220,20 +235,10 @@ public class ReportDialog extends Dialog<Void> {
         treeView.setShowRoot(false);
 
         Button close = new Button("Close Report");
-        close.setOnAction(event -> {
-            Node source = (Node) event.getSource();
-            Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
-        });
+        close.setOnAction(this::closeDialog);
 
         Button backToReports = new Button ("Back to Reports");
-        backToReports.setOnAction(event -> {
-            Node source = (Node) event.getSource();
-            Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
-            ReportDialog dialog = new ReportDialog();
-            dialog.showAndWait();
-        });
+        backToReports.setOnAction(this::closeAndBack);
 
         ScrollPane scrollPane = new ScrollPane(treeView);
         scrollPane.setFitToWidth(true);
@@ -252,9 +257,11 @@ public class ReportDialog extends Dialog<Void> {
     }
 
 
-
-
-
+    /**
+     * Generates a custom dialog that displays the customer with the most scheduled appointments and their number of
+     * appointments.
+     * @throws SQLException
+     */
     private void generateReport3() throws SQLException {
         try {
             String sql = "SELECT c.Customer_Name, COUNT(*) AS Appointment_Count " +
@@ -290,20 +297,10 @@ public class ReportDialog extends Dialog<Void> {
                 Dialog<Void> customerDialog = new Dialog<>();
                 VBox content = new VBox();
                 Button close = new Button("Close Report");
-                close.setOnAction(event -> {
-                    Node source = (Node) event.getSource();
-                    Stage stage = (Stage) source.getScene().getWindow();
-                    stage.close();
-                });
+                close.setOnAction(this::closeDialog);
 
                 Button backToReports = new Button ("Back to Reports");
-                backToReports.setOnAction(event -> {
-                    Node source = (Node) event.getSource();
-                    Stage stage = (Stage) source.getScene().getWindow();
-                    stage.close();
-                    ReportDialog dialog = new ReportDialog();
-                    dialog.showAndWait();
-                });
+                backToReports.setOnAction(this::closeAndBack);
 
 
                 content.setSpacing(10);
@@ -320,6 +317,31 @@ public class ReportDialog extends Dialog<Void> {
         }
 
 
+
+
+    }
+
+
+    /**
+     * Closes the dialog that contains the source of the event.
+     * @param event method gets the source node of the event in order to close it.
+     */
+    private void closeDialog(ActionEvent event){
+            Node source = (Node) event.getSource();
+            Stage stage = (Stage) source.getScene().getWindow();
+            stage.close();
+    }
+
+    /**
+     * Closes the dialog that contains the source of the event and then re-generates the ReportDialog.
+     * @param event method gets the source node of the event in order to close it.
+     */
+    private void closeAndBack(ActionEvent event){
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        ReportDialog dialog = new ReportDialog();
+        dialog.showAndWait();
     }
 
 

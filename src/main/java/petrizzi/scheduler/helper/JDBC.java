@@ -21,7 +21,7 @@ public abstract class JDBC {
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(jdbcURL, userName, userPass);
-            System.out.println("Connection open.");
+            //System.out.println("Connection open.");
         } catch (ClassNotFoundException | SQLException ignored) {
         }
     }
@@ -29,7 +29,7 @@ public abstract class JDBC {
     public static void closeConnection(){
         try{
             connection.close();
-            System.out.println("Connection closed.");
+            //System.out.println("Connection closed.");
         } catch (SQLException ignored) {
         }
 
