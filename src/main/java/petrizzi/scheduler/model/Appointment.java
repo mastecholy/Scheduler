@@ -22,6 +22,30 @@ public class Appointment {
     private String startString;
     private String endString;
 
+    public Appointment(int appointmentId, String title, String type, String description, LocalDateTime start, LocalDateTime end, int customerId) throws SQLException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.appointmentID = appointmentId;
+        this.appointmentTitle = title;
+        this.appointmentType = type;
+        this.appointmentDescription = description;
+        this.appointmentCustomerID = customerId;
+        this.appointmentContactName = Queries.selectContactName(appointmentContactID);
+        this.startString = start.format(formatter);
+        this.endString = end.format(formatter);
+
+    }
+
+    public String toString() {
+        return "Appointment " + appointmentID +
+                "\nStart: " + startString +
+                "\nEnd: " + endString +
+                "\nTitle: " + appointmentTitle +
+                "\nType: " + appointmentType +
+                "\nDescription: " + appointmentDescription +
+                "\nCustomer ID: " + appointmentCustomerID + "\n\n";
+    }
+
+
     public String getStartString() {
         return startString;
     }
@@ -56,6 +80,8 @@ public class Appointment {
         this.appointmentContactName = Queries.selectContactName(appointmentContactID);
         this.startString = appointmentStart.format(formatter);
         this.endString = appointmentEnd.format(formatter);
+
+
     }
 
     public int getAppointmentID() {

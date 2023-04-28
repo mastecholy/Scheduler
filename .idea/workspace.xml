@@ -5,22 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2fbe827b-95a1-4689-b060-af108ed4fe0e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/ReportDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/en-bundle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fr-bundle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/LoginTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateApptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/CreateCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/DirectoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/DirectoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/EditApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/EditApptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/EditCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/EditCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/JDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/HelperFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/HelperFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/Queries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/Queries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/ReportDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/helper/ReportDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/petrizzi/scheduler/model/User.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/directory-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/directory-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/petrizzi/scheduler/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>

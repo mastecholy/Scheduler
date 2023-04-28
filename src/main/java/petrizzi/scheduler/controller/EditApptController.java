@@ -86,6 +86,7 @@ public class EditApptController implements Initializable {
             int startMin = startMinutesSpinner.getValue();
             int endHour = endHoursSpinner.getValue();
             int endMin = endMinutesSpinner.getValue();
+            int customerID = customerIdComboBox.getValue();
             LocalDateTime localStartTime = LocalDateTime.of(startDay, LocalTime.of(startHour, startMin));
             LocalDateTime localEndTime = LocalDateTime.of(endDay, LocalTime.of(endHour, endMin));
 
@@ -101,7 +102,7 @@ public class EditApptController implements Initializable {
                         "Cannot schedule appointment outside of Eastern Time office hours.",
                         "Appointment must take place between 8:00 and 22:00 Eastern Time.");
 
-            } else if (Queries.checkAppointmentOverlap(customerIdComboBox.getValue(), localStartTime, localEndTime, Integer.parseInt(idField.getText()))) {
+            } else if (Queries.checkAppointmentOverlap(customerID, localStartTime, localEndTime, Integer.parseInt(idField.getText()))) {
                 HelperFunctions.sendAlert(Alert.AlertType.ERROR, "Invalid Appointment", "Customer appointment overlap!",
                         "Selected customer has an appointment during this time.");
             } else if (localStartTime.isAfter(localEndTime)){

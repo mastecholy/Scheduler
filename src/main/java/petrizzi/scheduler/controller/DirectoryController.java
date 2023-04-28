@@ -53,6 +53,7 @@ public class DirectoryController implements Initializable {
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        customerRegionColumn.setCellValueFactory(new PropertyValueFactory<>("divisionLocation"));
         customerPhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         customerDivisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
 
@@ -108,6 +109,9 @@ public class DirectoryController implements Initializable {
 
     @FXML
     private TableColumn<Customer, String> customerPostalCodeColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerRegionColumn;
 
     @FXML
     private TableColumn<Customer, String> customerPhoneNumberColumn;
@@ -290,6 +294,7 @@ public class DirectoryController implements Initializable {
 
     @FXML
     void removeAppointmentClick(MouseEvent event) throws SQLException {
+        Appointment appointment = appointmentTableView.getSelectionModel().getSelectedItem();
         if (appointmentTableView.getSelectionModel().getSelectedItem()==null) {
             HelperFunctions.sendAlert(Alert.AlertType.ERROR, "No customer selected.", "You must select an appointment to remove.");
             return;
@@ -301,7 +306,7 @@ public class DirectoryController implements Initializable {
             Queries.deleteAppointment(aID);
             populateAppointmentsTableView(appointmentTableView);
             HelperFunctions.sendAlert(Alert.AlertType.INFORMATION, "Appointment deleted.",
-                    "Appointment has been permanently deleted.");}
+                    String.format("Appointment of ID: %s and type: %s has been permanently deleted.", appointment.getAppointmentID(), appointment.getAppointmentType()));}
         }
 
     @FXML

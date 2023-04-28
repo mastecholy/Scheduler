@@ -1,6 +1,9 @@
 package petrizzi.scheduler.model;
 
+import petrizzi.scheduler.helper.Queries;
+
 import java.security.Timestamp;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Customer {
@@ -10,14 +13,16 @@ public class Customer {
     private String postalCode;
     private String phone;
     private int divisionID;
+    private String divisionLocation;
 
-    public Customer(int customerID, String customerName, String address, String postalCode, String phone, int divisionID) {
+    public Customer(int customerID, String customerName, String address, String postalCode, String phone, int divisionID) throws SQLException {
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
         this.divisionID = divisionID;
+        this.divisionLocation = Queries.selectRegion(divisionID);
     }
 
     // Getters and setters
@@ -67,6 +72,14 @@ public class Customer {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public String getDivisionLocation() {
+        return divisionLocation;
+    }
+
+    public void setDivisionLocation(String divisionLocation) {
+        this.divisionLocation = divisionLocation;
     }
 }
 

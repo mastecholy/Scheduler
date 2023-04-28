@@ -67,8 +67,7 @@ public class HelperFunctions {
                 if (appointment.getAppointmentStart().isAfter(LocalDateTime.now()) &&
                         appointment.getAppointmentStart().isBefore(LocalDateTime.now().plusMinutes(15))) {
                     HelperFunctions.sendAlert(Alert.AlertType.INFORMATION, "Upcoming Appointment",
-                            "You have an appointment starting in " + Duration.between(
-                                    LocalDateTime.now(), appointment.getAppointmentStart()).toMinutes() + " minute(s)!",
+                            "You have an appointment starting in soon!",
                             "Appointment ID: " + appointment.getAppointmentID() +
                                     "\nAppointment Time: " + appointment.getStartString());
                     return;

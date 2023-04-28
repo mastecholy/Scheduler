@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.JDBC;
+import petrizzi.scheduler.helper.LoginTracker;
 import petrizzi.scheduler.helper.Queries;
 import petrizzi.scheduler.model.Appointment;
 
@@ -55,16 +56,19 @@ public class LoginController implements Initializable {
     void onEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             Locale userLocale = Locale.getDefault();
+            String username = UsernameText.getText();
             if (userLocale.getLanguage().equals("fr")) {
                 bundle = ResourceBundle.getBundle("fr-bundle");
             } else {
                 bundle = ResourceBundle.getBundle("en-bundle");
             }
             try {
-                JDBC.openConnection(UsernameText.getText(), PasswordText.getText());
+                JDBC.openConnection(username, PasswordText.getText());
                 HelperFunctions.changeStage("directory-view.fxml", LoginButton);
                 HelperFunctions.greeting();
+                LoginTracker.trackLogin(username, true);
             } catch (IOException e) {
+                LoginTracker.trackLogin(username, false);
                 HelperFunctions.sendAlert(Alert.AlertType.ERROR, bundle.getString("error.title"), bundle.getString("error.content"));
             }
         }
@@ -73,17 +77,20 @@ public class LoginController implements Initializable {
     @FXML
     void LoginButtonClick(ActionEvent event) throws IOException {
         Locale userLocale = Locale.getDefault();
+        String username = UsernameText.getText();
         if (userLocale.getLanguage().equals("fr")) {
             bundle = ResourceBundle.getBundle("fr-bundle");
         } else {
             bundle = ResourceBundle.getBundle("en-bundle");
         }
         try {
-            JDBC.openConnection(UsernameText.getText(), PasswordText.getText());
+            JDBC.openConnection(username, PasswordText.getText());
             HelperFunctions.changeStage("directory-view.fxml", LoginButton);
             HelperFunctions.greeting();
+            LoginTracker.trackLogin(username, true);
         } catch (IOException e) {
             HelperFunctions.sendAlert(Alert.AlertType.ERROR, bundle.getString("error.title"), bundle.getString("error.content"));
+            LoginTracker.trackLogin(username, false);
         }
     }
 

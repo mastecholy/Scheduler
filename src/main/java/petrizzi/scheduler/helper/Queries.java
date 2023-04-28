@@ -225,8 +225,9 @@ public abstract class Queries {
         while (rs.next()) {
             LocalDateTime existingStart = rs.getTimestamp("Start").toLocalDateTime();
             LocalDateTime existingEnd = rs.getTimestamp("End").toLocalDateTime();
-            if ((start.isAfter(existingStart.minusMinutes(1)) && start.isBefore(existingEnd)) ||
-                    (end.isBefore(existingEnd.plusMinutes(1)) && end.isAfter(existingStart))) {
+            if ((start.isAfter(existingStart.minusMinutes(1)) && start.isBefore(existingEnd.plusMinutes(1))) ||
+                    (end.isAfter(existingStart.minusMinutes(1)) && end.isBefore(existingEnd.plusMinutes(1))) ||
+                    (start.isBefore(existingStart.plusMinutes(1)) && end.isAfter(existingEnd.minusMinutes(1)))) {
                 return true; //Appointment has an overlap.
             }
         }
@@ -243,8 +244,9 @@ public abstract class Queries {
         while (rs.next()) {
             LocalDateTime existingStart = rs.getTimestamp("Start").toLocalDateTime();
             LocalDateTime existingEnd = rs.getTimestamp("End").toLocalDateTime();
-            if ((start.isAfter(existingStart) && start.isBefore(existingEnd)) ||
-                    (end.isBefore(existingEnd) && end.isAfter(existingStart))) {
+            if ((start.isAfter(existingStart.minusMinutes(1)) && start.isBefore(existingEnd.plusMinutes(1))) ||
+                    (end.isAfter(existingStart.minusMinutes(1)) && end.isBefore(existingEnd.plusMinutes(1))) ||
+                    (start.isBefore(existingStart.plusMinutes(1)) && end.isAfter(existingEnd.minusMinutes(1)))) {
                 return true; //Appointment has an overlap.
             }
         }
@@ -252,7 +254,16 @@ public abstract class Queries {
     }
 
 
+    public static String selectRegion(int divisionID) throws SQLException {
+        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, divisionID);
+        ResultSet rs = ps.executeQuery();
 
+        if (rs.next()) {
+            return rs.getString("Division");
+        }else return null;
 
+    }
 }
 
