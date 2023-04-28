@@ -4,6 +4,9 @@ import petrizzi.scheduler.helper.Queries;
 
 import java.sql.SQLException;
 
+/**
+ * Class for creating customer objects that will be used to populate customer table view.
+ */
 public class Customer {
     private int customerID;
     private String customerName;
@@ -13,6 +16,16 @@ public class Customer {
     private int divisionID;
     private String divisionLocation;
 
+    /**
+     * Constructor for creating customer object, queries for Location name using DivisionID.
+     * @param customerID
+     * @param customerName
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param divisionID used to set the divisionLocation String.
+     * @throws SQLException
+     */
     public Customer(int customerID, String customerName, String address, String postalCode, String phone, int divisionID) throws SQLException {
         this.customerID = customerID;
         this.customerName = customerName;
@@ -23,7 +36,10 @@ public class Customer {
         this.divisionLocation = Queries.selectRegion(divisionID);
     }
 
-    // Getters and setters
+    /**
+     * Getters and Setters
+     */
+
     public int getCustomerID() {
         return customerID;
     }

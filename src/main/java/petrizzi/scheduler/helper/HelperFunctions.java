@@ -17,8 +17,17 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public class HelperFunctions {
+/**
+ * Abstract class containing helper utilities used across the application.
+ */
+public abstract class HelperFunctions {
 
+    /**
+     * Method that changes the stage to the form that corresponds with the fxml file and orients the stage.
+     * @param fxmlFileName target fxml file to change to.
+     * @param node node for event that calls the changeStage method used for defining current stage.
+     * @throws IOException
+     */
     public static void changeStage(String fxmlFileName, Node node) throws IOException {
         Stage stage = (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
@@ -31,6 +40,13 @@ public class HelperFunctions {
     }
 
 
+    /**
+     * Method for simplifying the sending of alerts.
+     * @param alertType type of alert to be sent.
+     * @param title alert title.
+     * @param content alert content.
+     * @return
+     */
     public static boolean sendAlert(Alert.AlertType alertType, String title, String content){
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -39,6 +55,14 @@ public class HelperFunctions {
         return result.get() != ButtonType.CANCEL;
     }
 
+    /**
+     * Method for simplifying the sending of alerts.
+     * @param alertType type of the alert to be sent.
+     * @param title alert title.
+     * @param headerText header text for alert.
+     * @param content content text.
+     * @return
+     */
     public static boolean sendAlert(Alert.AlertType alertType, String title, String headerText, String content){
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -48,6 +72,12 @@ public class HelperFunctions {
         return result.get() != ButtonType.CANCEL;
     }
 
+    /**
+     * Method for sending an alert to the user upon login, message depends on status of upcoming appointments.
+     * <p>
+     * Queries the database to get appointment information and checks to see if there are appointments staring
+     * within 15 minutes, and sends an alert to the user with relevant information regardless.
+     */
     public static void greeting() {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         try {

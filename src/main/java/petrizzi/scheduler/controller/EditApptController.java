@@ -19,6 +19,10 @@ import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the edit-appt-view.fxml that populates the fields with selected appointment info
+ * and allows the user to edit the appointment.
+ */
 public class EditApptController implements Initializable {
 
     @FXML
@@ -57,11 +61,24 @@ public class EditApptController implements Initializable {
     @FXML
     private Spinner<Integer> startHoursSpinner;
 
+    /**
+     * Value Factory for the start hour spinner, ranging from hours 0 to 23.
+     */
     SpinnerValueFactory<Integer> StartHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
+    /**
+     * Value Factory for the end hour spinner, ranging from hours 0 to 23.
+     */
     SpinnerValueFactory<Integer> EndHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
 
+    /**
+     * Value Factory for the start minutes spinner, ranging from minutes 0 to 55, incrementing by 5 minutes.
+     */
     SpinnerValueFactory<Integer> StartMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
+    /**
+     * Value Factory for the end minutes spinner, ranging from minutes 0 to 55, incrementing by 5 minutes.
+     */
     SpinnerValueFactory<Integer> EndMinFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 55, 0, 5);
+
     @FXML
     private Spinner<Integer> startMinutesSpinner;
 
@@ -74,6 +91,16 @@ public class EditApptController implements Initializable {
     @FXML
     private ComboBox<Integer> userIdComboBox;
 
+    /**
+     * MouseEvent that validates user input and edits the selected appointment.
+     * <p>
+     * Gets all values from form fields , checks that they are within the requirements and then
+     * updates the appointment with a query method.
+     * @param event saveButton on click mouse event.
+     * @throws IOException
+     * @throws SQLException
+     * @throws InvocationTargetException
+     */
     @FXML
     void saveButtonClick(MouseEvent event) throws IOException, SQLException, InvocationTargetException {
         try {
@@ -127,11 +154,22 @@ public class EditApptController implements Initializable {
         }
     }
 
+    /**
+     * Mouse Event that takes the user back to the directory without updating the appointment.
+     * @param event cancelButton on click mouse event.
+     * @throws IOException
+     */
     @FXML
     void cancelButtonClick(MouseEvent event) throws IOException {
         HelperFunctions.changeStage("directory-view.fxml", cancelButton);
     }
 
+    /**
+     * Initialize method that sets the value factories of the spinners and populates the combo boxes
+     * as well as the form fields with the selected appointment.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startHoursSpinner.setValueFactory(StartHourFactory);
@@ -150,6 +188,11 @@ public class EditApptController implements Initializable {
 
     }
 
+    /**
+     * Method called in initialize that sets all the form fields with the corresponding
+     * selected appointment information.
+     * @param appointment the appointment passed from the directory form.
+     */
     public void setAppointment(Appointment appointment) {
         idField.setText(String.valueOf(appointment.getAppointmentID()));
         titleField.setText(appointment.getAppointmentTitle());

@@ -20,8 +20,26 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the edit-customer-view.fxml that allows the user to edit the selected customer information.
+ */
 public class EditCustomerController implements Initializable {
 
+    /**
+     * Initialize method that sets the combo boxes, adds a listener for combo box function and populates the form. -
+     * CONTAINS LAMBDA
+     * <p>
+     * Sets the items of the countryBox and regionBox, with a listener that updates the regionBox
+     * with the regions of the selected country from the database. Populates all of the fields with the information
+     * from the selected customer.
+     * <p>
+     * LAMBDA JUSTIFICATION - This lambda allows the listener conditions to be set directly in the
+     * initialize method. Since the main purpose for this controller's initialize method is to
+     * set and control the combo box behavior, it allows for the logic and functionality for the
+     * affected nodes to be in one location.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countryBox.setItems(FXCollections.observableArrayList("United States", "United Kingdom", "Canada"));
@@ -83,12 +101,25 @@ public class EditCustomerController implements Initializable {
     @FXML
     private int regionID;
 
-
+    /**
+     * MouseEvent for the cancel button that returns the user to the directory without
+     * submitting any information.
+     * @param event cancelButton on mouse click.
+     * @throws IOException
+     */
     @FXML
     void cancelButtonClick(MouseEvent event) throws IOException {
         HelperFunctions.changeStage("directory-view.fxml", cancelButton);
     }
 
+    /**
+     * MouseEvent for the saveButton that validates the user's input and then updates
+     * the selected customer information with a query method.
+     * @param event saveButton on click mouse event.
+     * @throws IOException
+     * @throws SQLException
+     * @throws InvocationTargetException
+     */
     @FXML
     void saveButtonClick(MouseEvent event) throws IOException, SQLException, InvocationTargetException {
         if(name.getText().isBlank() || address.getText().isBlank() || postalCode.getText().isBlank() || phone.getText().isBlank()) {
@@ -110,7 +141,12 @@ public class EditCustomerController implements Initializable {
     }
 
 
-
+    /**
+     * Method called in initialize that sets all the form fields with
+     * the selected customer's correlated information.
+     * @param customer selected customer passed from directory form.
+     * @throws SQLException
+     */
     public void setCustomer(Customer customer) throws SQLException {
 
         ID.setText(String.valueOf(customer.getCustomerID()));

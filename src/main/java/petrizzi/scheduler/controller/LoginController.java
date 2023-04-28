@@ -16,6 +16,10 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Class that allows the user to log in to the scheduler app, establishes
+ * a database connection, and generates a history of login attempts.
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -44,6 +48,11 @@ public class LoginController implements Initializable {
 
     ResourceBundle bundle;
 
+    /**
+     * KeyEvent that triggers login attempt when the user presses enter
+     * while within the password text field.
+     * @param event on enter press in password text field.
+     */
     @FXML
     void onEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -66,6 +75,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * ActionEvent that tries to open a connection with the user's entered information,
+     * and appends the login attempt info to a text file, sending an alert if the login fails.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void LoginButtonClick(ActionEvent event) throws IOException {
         Locale userLocale = Locale.getDefault();
@@ -86,6 +101,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Initialize method that checks for the user's default system language, setting
+     * the language resource bundle accordingly to all relevant items on the form.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Locale userLocale = Locale.getDefault();

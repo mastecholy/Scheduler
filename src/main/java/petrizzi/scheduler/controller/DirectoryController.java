@@ -25,12 +25,29 @@ import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the directory-view.fxml that shows all customers and user appointments
+ * in table views, allows the user to add or edit them, and allows the user to generate reports.
+ */
 public class DirectoryController implements Initializable {
 
     public static Customer selectedCustomer;
     public static Appointment selectedAppointment;
 
 
+    /**
+     * Initialize method that sets the value factories for the tableView columns, creates filtered lists
+     * for filtered appointment data and adds listeners to radio buttons to display the filtered info. -
+     * CONTAINS LAMBDAS
+     *
+     * LAMBDA JUSTIFICATION - The first two lambdas are used to set the filteredList conditions for both
+     * the list that will contain all appointments this week and all appointments this month. This allows the
+     * conditions to be set in a compact way in a relevant location without having to define two separate
+     * functions for each condition. The third lambda adds a listener to the radioButton toggle group that
+     * again concisely sets the filtered items into the table in a relevant location.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -146,7 +163,12 @@ public class DirectoryController implements Initializable {
     @FXML
     private TableColumn<Appointment, Integer> apptUserIDColumn;
 
-
+    /**
+     * Method that populates the customerTableView with new Customer objects
+     * created from a query method, called in initialize.
+     * @param tableView the tableView that the results will be put in.
+     * @throws SQLException
+     */
     public void populateCustomersTableView(TableView<Customer> tableView) throws SQLException {
 
         String sql = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID FROM CUSTOMERS";
@@ -169,6 +191,12 @@ public class DirectoryController implements Initializable {
         }
     }
 
+    /**
+     * Method that populates the appointmentsTableView with new Appointment objects
+     * created from a query method, called in initialize.
+     * @param tableView the table view the results will be put in.
+     * @throws SQLException
+     */
     public void populateAppointmentsTableView(TableView<Appointment> tableView) throws SQLException {
 
         String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM appointments";
@@ -213,9 +241,6 @@ public class DirectoryController implements Initializable {
     private Button editCustomerButton;
 
     @FXML
-    private Button removeCustomerButton;
-
-    @FXML
     private Button addApptButton;
 
     @FXML
@@ -230,11 +255,23 @@ public class DirectoryController implements Initializable {
     @FXML
     private Button removeApptButton;
 
+    /**
+     * MouseEvent that takes the user to the Create Customer form.
+     * @param event addCustomerButton on click event.
+     * @throws IOException
+     */
     @FXML
     void addCustomerClick(MouseEvent event) throws IOException {
         HelperFunctions.changeStage("create-customer-view.fxml", addCustomerButton);
     }
 
+    /**
+     * Mouse Event that takes the user to the Edit Appointment form.
+     * <p>
+     * Validates that there is an appointment selected and then passes the selected item to the new form.
+     * @param event editAppointmentButton on click event.
+     * @throws IOException
+     */
     @FXML
     void editApptClick(MouseEvent event) throws IOException {
         if (appointmentTableView.getSelectionModel().getSelectedItem()==null) {
@@ -245,11 +282,23 @@ public class DirectoryController implements Initializable {
         HelperFunctions.changeStage("edit-appt-view.fxml", editApptButton);
     }
 
+    /**
+     * MouseEvent that takes the user to the Create Appointment form.
+     * @param event addAppointmentButton on mouse click.
+     * @throws IOException
+     */
     @FXML
     void addApptClick(MouseEvent event) throws IOException {
         HelperFunctions.changeStage("create-appt-view.fxml", addApptButton);
     }
 
+    /**
+     * MouseEvent that takes the user to the Edit Customer form.
+     * <p>
+     * Validates that there is a customer selected and then passes the selected item to the new form.
+     * @param event editCustomerButton on click mouse event.
+     * @throws IOException
+     */
     @FXML
     void editCustomerClick(MouseEvent event) throws IOException {
         if (customerTableView.getSelectionModel().getSelectedItem()==null) {
@@ -260,6 +309,12 @@ public class DirectoryController implements Initializable {
         HelperFunctions.changeStage("edit-customer-view.fxml", editCustomerButton);
     }
 
+    /**
+     * MouseEvent that deletes all the selected customer's appointments and then the customer, sending an alert after..
+     * @param event removeCustomerButton on click mouse event.
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void removeCustomerClick(MouseEvent event) throws SQLException, IOException {
         if (customerTableView.getSelectionModel().getSelectedItem()==null) {
@@ -277,6 +332,11 @@ public class DirectoryController implements Initializable {
                     "Customer and related appointments have been permanently deleted.");}
     }
 
+    /**
+     * MouseEvent that removes the selected appointment from the database, sending an alert after.
+     * @param event removeAppointmentButton on click mouse event.
+     * @throws SQLException
+     */
     @FXML
     void removeAppointmentClick(MouseEvent event) throws SQLException {
         Appointment appointment = appointmentTableView.getSelectionModel().getSelectedItem();
@@ -294,6 +354,10 @@ public class DirectoryController implements Initializable {
                     String.format("Appointment of ID: %s and type: %s has been permanently deleted.", appointment.getAppointmentID(), appointment.getAppointmentType()));}
         }
 
+    /**
+     * MouseEvent that shows the custom ReportDialog while staying in the directory.
+     * @param event reportsButton on click mouse event.
+     */
     @FXML
     void reportsClick(MouseEvent event){
         ReportDialog dialog = new ReportDialog();
@@ -301,16 +365,28 @@ public class DirectoryController implements Initializable {
 
     }
 
+    /**
+     * MouseEvent that asks the user to confirm their exit and then terminates the program.
+     * @param event exitButton on click mouse event.
+     */
     @FXML
     void exitClick(MouseEvent event){
+        if (HelperFunctions.sendAlert(Alert.AlertType.CONFIRMATION, "Exit Scheduler?", "Are you sure you want to exit?")){
         Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
+        stage.close();}
     }
 
+    /**
+     * MouseEvent that asks the user to confirm their logout and then sends the user to the login
+     * screen and closes the database connection.
+     * @param event logoutButton on click mouse event.
+     * @throws IOException
+     */
     @FXML
     void logoutClick(MouseEvent event) throws IOException{
+        if (HelperFunctions.sendAlert(Alert.AlertType.CONFIRMATION, "Logout?", "Are you sure you want to log out?")){
         HelperFunctions.changeStage("login-view.fxml", logoutButton);
-        JDBC.closeConnection();
+        JDBC.closeConnection();}
     }
 
 }

@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for appointment objects that will populate appointment table view in directory.
+ */
 public class Appointment {
     private int appointmentID;
     private String appointmentTitle;
@@ -21,6 +24,17 @@ public class Appointment {
     private String startString;
     private String endString;
 
+    /**
+     * Constructor for appointment object.
+     * @param appointmentId
+     * @param title
+     * @param type
+     * @param description
+     * @param start
+     * @param end
+     * @param customerId
+     * @throws SQLException
+     */
     public Appointment(int appointmentId, String title, String type, String description, LocalDateTime start, LocalDateTime end, int customerId) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.appointmentID = appointmentId;
@@ -34,6 +48,10 @@ public class Appointment {
 
     }
 
+    /**
+     * Method for formatting appointment information as a string.
+     * @return returns string representing appointment information.
+     */
     public String toString() {
         return "Appointment " + appointmentID +
                 "\nStart: " + startString +
@@ -44,6 +62,9 @@ public class Appointment {
                 "\nCustomer ID: " + appointmentCustomerID + "\n\n";
     }
 
+    /**
+     * Getters and setters.
+     */
 
     public String getStartString() {
         return startString;
@@ -61,6 +82,20 @@ public class Appointment {
         this.endString = endString;
     }
 
+    /**
+     * Constructor for appointment object with DateTimeFormatter and Contact name fetching for table representation.
+     * @param appointmentID
+     * @param appointmentTitle
+     * @param appointmentDescription
+     * @param appointmentLocation
+     * @param appointmentType
+     * @param appointmentStart
+     * @param appointmentEnd
+     * @param appointmentCustomerID
+     * @param appointmentUserID
+     * @param appointmentContactID used to query for contact name and make it retrievable information from the object.
+     * @throws SQLException
+     */
     public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation,
                        String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
                        int appointmentCustomerID, int appointmentUserID, int appointmentContactID) throws SQLException {
@@ -82,6 +117,10 @@ public class Appointment {
 
 
     }
+
+    /**
+     * Getters and setters.
+     */
 
     public int getAppointmentID() {
         return appointmentID;
