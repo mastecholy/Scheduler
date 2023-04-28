@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import petrizzi.scheduler.model.Appointment;
 
-import java.lang.reflect.Type;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,7 +69,7 @@ public class ReportDialog extends Dialog<Void> {
                     generateReport3();
                 } else {HelperFunctions.sendAlert(Alert.AlertType.ERROR,"No report selected.", "Please select a report to generate.");
                 return;}
-            }catch (Exception ignored) {};
+            }catch (Exception ignored) {}
 
         });
         buttons.getChildren().add(generateButton);

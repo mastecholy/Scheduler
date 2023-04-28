@@ -2,9 +2,7 @@ package petrizzi.scheduler.model;
 
 import petrizzi.scheduler.helper.Queries;
 
-import java.security.Timestamp;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 public class Customer {
     private int customerID;

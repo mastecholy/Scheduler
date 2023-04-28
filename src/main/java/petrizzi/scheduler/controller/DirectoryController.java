@@ -1,21 +1,14 @@
 package petrizzi.scheduler.controller;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateTimeStringConverter;
-import petrizzi.scheduler.Main;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.JDBC;
 import petrizzi.scheduler.helper.Queries;
@@ -28,17 +21,9 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 public class DirectoryController implements Initializable {
 

@@ -3,22 +3,17 @@ package petrizzi.scheduler.helper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import petrizzi.scheduler.Main;
-import petrizzi.scheduler.controller.LoginController;
 import petrizzi.scheduler.model.Appointment;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -41,11 +36,8 @@ public class HelperFunctions {
         alert.setTitle(title);
         alert.setContentText(content);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.CANCEL) {
-            return false;
-        }
-        return true;
-    };
+        return result.get() != ButtonType.CANCEL;
+    }
 
     public static boolean sendAlert(Alert.AlertType alertType, String title, String headerText, String content){
         Alert alert = new Alert(alertType);
@@ -53,11 +45,8 @@ public class HelperFunctions {
         alert.setContentText(content);
         alert.setHeaderText(headerText);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.CANCEL) {
-            return false;
-        }
-        return true;
-    };
+        return result.get() != ButtonType.CANCEL;
+    }
 
     public static void greeting() {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();

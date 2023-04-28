@@ -1,8 +1,5 @@
 package petrizzi.scheduler.controller;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,14 +9,9 @@ import javafx.scene.input.KeyEvent;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.JDBC;
 import petrizzi.scheduler.helper.LoginTracker;
-import petrizzi.scheduler.helper.Queries;
-import petrizzi.scheduler.model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;

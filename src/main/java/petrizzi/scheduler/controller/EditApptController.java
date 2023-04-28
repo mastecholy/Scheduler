@@ -7,7 +7,6 @@ import javafx.scene.input.MouseEvent;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.Queries;
 import petrizzi.scheduler.model.Appointment;
-import petrizzi.scheduler.model.Contact;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

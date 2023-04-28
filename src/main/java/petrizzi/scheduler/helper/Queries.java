@@ -3,11 +3,12 @@ package petrizzi.scheduler.helper;
 import javafx.fxml.FXML;
 import petrizzi.scheduler.model.Appointment;
 
-import java.sql.*;
-import java.time.LocalDate;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
 
 public abstract class Queries {
 
@@ -20,7 +21,7 @@ public abstract class Queries {
         ps.setString(4, phoneNumber);
         ps.setInt(5, divisionID);
         ps.executeUpdate();
-    };
+    }
 
     public static void createAppointment(String title, String type, String description, String location, LocalDateTime start, LocalDateTime end, int customerID, int userID, String contactName) throws SQLException {
         String sql = "INSERT INTO appointments (Title, Type, Description, Location, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,7 +36,7 @@ public abstract class Queries {
         ps.setInt(8, userID);
         ps.setInt(9, Queries.selectContactID(contactName));
         ps.executeUpdate();
-    };
+    }
 
     public static void updateCustomer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID) throws SQLException {
         String sql = "UPDATE CUSTOMERS SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
@@ -47,7 +48,7 @@ public abstract class Queries {
         ps.setInt(5, divisionID);
         ps.setInt(6, customerID);
         ps.executeUpdate();
-    };
+    }
 
     public static void updateAppointment(int ID, String title, String type, String description, String location, LocalDateTime start, LocalDateTime end, int customerID, int userID, String contactName) throws SQLException {
         String sql = "UPDATE appointments SET Title=?, Type=?, Description=?, Location=?, Start=?, End=?, Customer_ID=?, User_ID=?, Contact_ID=? WHERE Appointment_ID=?";
@@ -63,7 +64,7 @@ public abstract class Queries {
         ps.setInt(9, Queries.selectContactID(contactName));
         ps.setInt(10, ID);
         ps.executeUpdate();
-    };
+    }
 
     @FXML
     public static ArrayList<Appointment> selectAppointments() throws SQLException {
@@ -101,7 +102,7 @@ public abstract class Queries {
             entityList.add(division);
         }
         return entityList;
-    };
+    }
 
     public static ArrayList<String> selectContactNames() throws SQLException {
         String sql = "SELECT * FROM contacts";

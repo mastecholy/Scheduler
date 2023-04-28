@@ -6,17 +6,17 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import petrizzi.scheduler.helper.HelperFunctions;
 import petrizzi.scheduler.helper.Queries;
-import petrizzi.scheduler.model.Contact;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDateTime;
-import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
 public class CreateApptController implements Initializable {
 

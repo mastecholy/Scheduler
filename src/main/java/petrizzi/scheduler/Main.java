@@ -1,12 +1,10 @@
 package petrizzi.scheduler;
 
-import com.mysql.cj.jdbc.JdbcConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import petrizzi.scheduler.helper.JDBC;
-import petrizzi.scheduler.helper.Queries;
 
 import java.io.IOException;
 import java.sql.SQLException;
