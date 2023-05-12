@@ -1,3 +1,6 @@
+This application all related files were constructed and formatted to conspicuously satisfy the requirements listed in the rubric, intended to include all necessary configurations to be ran on the evaluator's standardized VM environment.
+
+
 
 TITLE AND PURPOSE OF APPLICATION:
     This application is called "Scheduler" and its purpose is to allow the user to create, remove, update and delete
